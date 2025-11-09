@@ -1,42 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>מיפוי מדריכים לשיבוץ סטודנטים</title>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <title>מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="form-container">
-    <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים</h1>
-    <form method="POST">
-      <label>שם פרטי *</label>
-      <input type="text" name="first_name" required>
-      <label>שם משפחה *</label>
-      <input type="text" name="last_name" required>
-      <label>תחום התמחות *</label>
-      <select name="specialization" required>
-        <option>בחר/י מהרשימה</option>
-        {% for s in specializations %}
-        <option>{{ s }}</option>
-        {% endfor %}
-      </select>
-      <label>טלפון *</label>
-      <input type="tel" name="phone" required>
-      <label>אימייל *</label>
-      <input type="email" name="email" required>
-      <button type="submit">שלח/י</button>
-    </form>
 
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header class="hero">
+    <div class="hero-icon">📋</div>
+    <div class="hero-text">
+      <h1>מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</h1>
+      <p>
+        שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
+        אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
+      </p>
+    </div>
+  </header>
+
+  <!-- FLASH MESSAGES -->
+  <div class="messages">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-      <div class="messages">
-        {% for cat, msg in messages %}
-          <p class="{{ cat }}">{{ msg }}</p>
+        {% for category, msg in messages %}
+          <div class="msg msg-{{ category }}">{{ msg }}</div>
         {% endfor %}
-      </div>
       {% endif %}
     {% endwith %}
   </div>
+
+  <!-- FORM CARD -->
+  <main>
+    <form method="post" class="form-card">
+
+      <!-- פרטים אישיים -->
+      <section class="form-section">
+        <h2>פרטים אישיים</h2>
+
+        <label>
+          שם פרטי <span class="req">*</span>
+          <input type="text" name="first_name" required>
+        </label>
+
+        <label>
+          שם משפחה <span class="req">*</span>
+          <input type="text" name="last_name" required>
+        </label>
+
+        <label>
+          סטטוס מדריך <span class="req">*</span>
+          <select name="mentor_status" required>
+            <option value="">בחר/י מהאפשרויות</option>
+            <option value="מדריך חדש (נדרש קורס)">מדריך חדש (נדרש קורס)</option>
+            <option value="מדריך ותיק">מדריך ותיק</option>
+            <option value="רכז/ת">רכז/ת</option>
+          </select>
+        </label>
+      </section>
+
+      <!-- מוסד ההכשרה -->
+      <section class="form-section">
+        <h2>מוסד ההכשרה</h2>
+
+        <label>
+          שם המוסד <span class="req">*</span>
+          <input type="text" name="institute" required>
+        </label>
+
+        <label>
+          תחום התמחות <span class="req">*</span>
+          <select name="specialization" required>
+            <option>בחר/י מהרשימה</option>
+            {% for s in specializations %}
+              <option value="{{ s }}">{{ s }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </section>
+
+      <!-- כתובת המוסד -->
+      <section class="form-section">
+        <h2>כתובת המוסד</h2>
+
+        <label>
+          רחוב <span class="req">*</span>
+          <input type="text" name="street" required>
+        </label>
+
+        <label>
+          עיר <span class="req">*</span>
+          <input type="text" name="city" required>
+        </label>
+
+        <label>
+          מיקוד <span class="req">*</span>
+          <input type="text" name="postal_code" required>
+        </label>
+      </section>
+
+      <!-- קליטת סטודנטים -->
+      <section class="form-section">
+        <h2>קליטת סטודנטים</h2>
+
+        <label>
+          מספר סטודנטים שניתן לקלוט (1 או 2) <span class="req">*</span>
+          <select name="num_students" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </label>
+      </section>
+
+      <!-- המשכיות הדרכה -->
+      <section class="form-section">
+        <h2>המשכיות הדרכה</h2>
+        <div class="inline-options">
+          <label class="radio-label">
+            <input type="radio" name="continue_mentoring" value="כן"> כן
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="continue_mentoring" value="לא"> לא
+          </label>
+        </div>
+      </section>
+
+      <!-- בקשות מיוחדות -->
+      <section class="form-section">
+        <h2>בקשות מיוחדות</h2>
+        <label>
+          בקשות מיוחדות (למשל: הדרכה בערב, שפות, נגישות, אילוצים)
+          <textarea name="special_requests" rows="3"
+                    placeholder="כתוב/י כאן כל בקשה שתרצה שניקח בחשבון בשיבוץ"></textarea>
+        </label>
+      </section>
+
+      <!-- חוות דעת על המדריך -->
+      <section class="form-section">
+        <h2>חוות דעת על המדריך</h2>
+
+        <label>
+          סמן/י נקודות רלוונטיות
+          <select name="mentor_feedback_points" multiple class="multi-select">
+            <option value="זמינות גבוהה">זמינות גבוהה</option>
+            <option value="ליווי מקצועי משמעותי">ליווי מקצועי משמעותי</option>
+            <option value="שיתוף פעולה עם המוסד">שיתוף פעולה עם המוסד</option>
+            <option value="צורך בחיזוק בליווי">צורך בחיזוק בליווי</option>
+          </select>
+          <span class="hint">ניתן לבחור יותר מאפשרות אחת (Ctrl / Command + לחיצה).</span>
+        </label>
+
+        <label>
+          כתיבה חופשית (פירוט נוסף)
+          <textarea name="mentor_feedback_text" rows="3"
+                    placeholder="כתוב/י כאן חוות דעת חופשית..."></textarea>
+        </label>
+      </section>
+
+      <!-- פרטי התקשרות -->
+      <section class="form-section">
+        <h2>פרטי התקשרות</h2>
+
+        <label>
+          מספר טלפון <span class="req">*</span>
+          <input type="tel" name="phone" required placeholder="0501234567">
+        </label>
+
+        <label>
+          כתובת דוא&quot;ל <span class="req">*</span>
+          <input type="email" name="email" required placeholder="name@example.com">
+        </label>
+      </section>
+
+      <!-- SUBMIT -->
+      <div class="submit-wrap">
+        <button type="submit">שליחת הטופס</button>
+      </div>
+
+    </form>
+  </main>
+</div>
+
 </body>
 </html>
