@@ -140,25 +140,57 @@
 
       <!-- חוות דעת על המדריך -->
       <section class="form-section">
-        <h2>חוות דעת על המדריך</h2>
+  <h2>חוות דעת על המדריך</h2>
 
-        <label>
-          סמן/י נקודות רלוונטיות
-          <select name="mentor_feedback_points" multiple class="multi-select">
-            <option value="זמינות גבוהה">זמינות גבוהה</option>
-            <option value="ליווי מקצועי משמעותי">ליווי מקצועי משמעותי</option>
-            <option value="שיתוף פעולה עם המוסד">שיתוף פעולה עם המוסד</option>
-            <option value="צורך בחיזוק בליווי">צורך בחיזוק בליווי</option>
-          </select>
-          <span class="hint">ניתן לבחור יותר מאפשרות אחת (Ctrl / Command + לחיצה).</span>
-        </label>
+  <div class="feedback-multi" data-feedback-multi>
 
-        <label>
-          כתיבה חופשית (פירוט נוסף)
-          <textarea name="mentor_feedback_text" rows="3"
-                    placeholder="כתוב/י כאן חוות דעת חופשית..."></textarea>
-        </label>
-      </section>
+    <!-- שורת התגיות שנבנית לפי הבחירות -->
+    <div class="feedback-selected"></div>
+
+    <!-- רשימת האפשרויות -->
+    <div class="feedback-options">
+      <label class="feedback-option">
+        <input type="checkbox" name="mentor_feedback_points"
+               value="זמינות גבוהה" data-label="זמינות גבוהה">
+        <span class="check-icon">✔</span>
+        <span class="text">זמינות גבוהה</span>
+      </label>
+
+      <label class="feedback-option">
+        <input type="checkbox" name="mentor_feedback_points"
+               value="ליווי מקצועי משמעותי" data-label="ליווי מקצועי משמעותי">
+        <span class="check-icon">✔</span>
+        <span class="text">ליווי מקצועי משמעותי</span>
+      </label>
+
+      <label class="feedback-option">
+        <input type="checkbox" name="mentor_feedback_points"
+               value="שיתוף פעולה עם המוסד" data-label="שיתוף פעולה עם המוסד">
+        <span class="check-icon">✔</span>
+        <span class="text">שיתוף פעולה עם המוסד</span>
+      </label>
+
+      <label class="feedback-option">
+        <input type="checkbox" name="mentor_feedback_points"
+               value="צורך בחיזוק בליווי" data-label="צורך בחיזוק בליווי">
+        <span class="check-icon">✔</span>
+        <span class="text">צורך בחיזוק בליווי</span>
+      </label>
+    </div>
+  </div>
+
+  <span class="hint">
+    ניתן לבחור כמה נקודות שרוצים. לחיצה על תגית עם ✕ תבטל את הבחירה.
+  </span>
+
+  <label>
+    כתיבה חופשית (פירוט נוסף)
+    <textarea name="mentor_feedback_text" rows="3"
+              placeholder="כתוב/י כאן חוות דעת חופשית..."></textarea>
+  </label>
+</section>
+
+      
 
       <!-- פרטי התקשרות -->
       <section class="form-section">
@@ -186,3 +218,4 @@
 
 </body>
 </html>
+
