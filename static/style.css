@@ -385,5 +385,106 @@ button[type="submit"]:active {
   transform: translateY(1px);
   box-shadow: 0 8px 18px rgba(99,102,241,0.25);
 }
+/* ===== חוות דעת על המדריך - גרסה מעודנת ===== */
+.feedback-multi {
+  width: 100%;
+  padding: 10px 14px 10px;
+  border-radius: 22px; /* פחות תפוח */
+  border: 1px solid rgba(99,102,241,0.12);
+  background: rgba(255,255,255,0.97);
+  box-shadow: 0 8px 20px rgba(99,102,241,0.10); /* צל עדין יותר */
+  margin-bottom: 14px;
+}
+
+/* שורת התגיות */
+.feedback-selected {
+  min-height: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.feedback-placeholder {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+/* תגית נבחרת */
+.feedback-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(99,102,241,0.12);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(99,102,241,0.1);
+}
+
+.feedback-chip .chip-remove {
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* רשימת האפשרויות */
+.feedback-options {
+  margin-top: 3px;
+  padding-top: 3px;
+  border-top: 1px solid rgba(226,232,240,0.6);
+}
+
+/* כל אפשרות */
+.feedback-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #111827;
+  transition: background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.feedback-option input[type="checkbox"] {
+  display: none;
+}
+
+.check-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: transparent;
+  flex-shrink: 0;
+}
+
+.feedback-option input[type="checkbox"]:checked + .check-icon {
+  background: #ffffff;
+  border-color: #6366f1;
+  color: #22c55e;
+  box-shadow: 0 2px 6px rgba(99,102,241,0.18);
+}
+
+.feedback-option input[type="checkbox"]:checked + .check-icon + .text {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.feedback-option:hover {
+  background-color: rgba(99,102,241,0.05);
+}
+
+
 
 
