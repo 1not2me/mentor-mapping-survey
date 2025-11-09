@@ -104,6 +104,7 @@ def get_worksheet():
 
     return sh.sheet1
 
+
 def ensure_header(ws):
     existing = ws.get_all_values()
     if not existing or existing[0] != COLUMNS_ORDER:
@@ -184,14 +185,16 @@ def index():
             ws = get_worksheet()
             ensure_header(ws)
             ws.append_row([record[col] for col in COLUMNS_ORDER])
-            flash("✅ הטופס נשלח ונשמר בהצלחה!", "success")
+            flash("✅ הטופס נשלח ונשמר בהצלחה! תודה 🌟", "success")
         except Exception as e:
-            print("Error saving to Google Sheets:", repr(e))
+            print("Google Sheets append error:", e)
             flash("❌ שגיאה בשמירה לגיליון. נא לפנות למנהל המערכת.", "error")
 
         return redirect(url_for("index"))
 
+    # GET
     return render_template("index.html", specializations=SPECIALIZATIONS)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
