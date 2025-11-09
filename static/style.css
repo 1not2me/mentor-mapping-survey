@@ -135,7 +135,7 @@ body {
 label {
   display: block;
   margin-bottom: 10px;
-  font-size: 1rem;          /* מותאם לבסיס 22px של body */
+  font-size: 1rem;
   color: #374151;
 }
 
@@ -173,226 +173,14 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(129,140,248,0.23);
 }
 
-/* ----- חוות דעת על המדריך: multi-select ----- */
-.multi-select {
-  width: 100%;
-  min-height: 200px;
-  padding: 12px;
-  font-size: 1rem;
-  border-radius: 26px;
-  border: 3px solid #6366f1;
-  background-color: #f9fafc;
-  overflow-y: auto;
-  appearance: auto;          /* מחזיר התנהגות טבעית, בלי עיוותים */
-}
-
-/* אפשרויות ברשימת חוות דעת */
-.multi-select option {
-  padding: 6px 10px;
-  margin: 2px 0;
-  border-radius: 10px;
-}
-
-/* סימון עדין לנבחרים */
-.multi-select option:checked {
-  background-color: #e0e7ff;
-  color: #111827;
-}
-
-/* radios / inline */
-.inline-options {
-  display: flex;
-  gap: 18px;
-  margin-top: 4px;
-}
-
-.radio-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 1rem;
-  color: #374151;
-}
-
-.radio-label input {
-  width: auto;
-  margin: 0;
-  box-shadow: none;
-  background: transparent;
-}
-
-/* submit */
-.submit-wrap {
-  display: flex;
-  justify-content: flex-start;
-  padding-top: 18px;
-}
-
-button[type="submit"] {
-  padding: 12px 40px;
-  font-size: 1.05rem;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  background: linear-gradient(to left, #6366f1, #22c55e);
-  color: #ffffff;
-  font-weight: 600;
-  box-shadow: 0 10px 24px rgba(79,70,229,0.35);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
-}
-
-button[type="submit"]:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 32px rgba(79,70,229,0.35);
-  opacity: 0.95;
-}
-
-button[type="submit"]:active {
-  transform: translateY(1px);
-  box-shadow: 0 8px 16px rgba(79,70,229,0.25);
-}
-/* ===== חוות דעת על המדריך - multi select בסגנון האתר ===== */
-
+/* ----- חוות דעת על המדריך - גרסה מעודנת ----- */
 .feedback-multi {
   width: 100%;
-  padding: 10px 14px 10px;
-  border-radius: 26px;
-  border: 1px solid rgba(99,102,241,0.16); /* סגול עדין */
-  background: rgba(255,255,255,0.98);
-  box-shadow: var(--shadow-soft);
-}
-
-/* שורת התגיות שנבחרו */
-.feedback-selected {
-  min-height: 38px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.feedback-placeholder {
-  font-size: 0.9rem;
-  color: #9ca3af;
-}
-
-/* תגית נבחרת */
-.feedback-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 11px;
-  border-radius: 999px;
-  background: var(--primary-soft); /* סגול רך שקוף */
-  color: var(--ink);
-  font-size: 0.9rem;
-  font-weight: 500;
-  box-shadow: 0 4px 10px rgba(148,163,253,0.25);
-}
-
-.feedback-chip .chip-remove {
-  font-size: 15px;
-  line-height: 1;
-  cursor: pointer;
-  color: #6b7280;
-}
-
-/* רשימת האפשרויות */
-.feedback-options {
-  margin-top: 4px;
-  padding-top: 4px;
-  border-top: 1px solid rgba(226,232,240,0.9);
-}
-
-/* שורה אחת ברשימה */
-.feedback-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 6px;
-  border-radius: 14px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  color: #111827;
-  transition: background-color 0.14s ease, color 0.14s ease, box-shadow 0.14s ease;
-}
-
-/* מסתירים את ה-checkbox */
-.feedback-option input[type="checkbox"] {
-  display: none;
-}
-
-/* אייקון וי */
-.check-icon {
-  width: 18px;
-  height: 18px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  color: transparent;
-  flex-shrink: 0;
-}
-
-/* מצב נבחר */
-.feedback-option input[type="checkbox"]:checked + .check-icon {
-  background: #ffffff;
-  border-color: var(--primary);
-  color: #22c55e; /* ירוק וי כמו בכפתור */
-  box-shadow: 0 3px 8px rgba(99,102,241,0.25);
-}
-
-.feedback-option input[type="checkbox"]:checked + .check-icon + .text {
-  color: var(--primary);
-  font-weight: 600;
-}
-
-/* hover עדין, תואם שאר האתר */
-.feedback-option:hover {
-  background-color: rgba(99,102,241,0.04);
-}
-/* submit */
-.submit-wrap {
-  display: flex;
-  justify-content: center;   /* מרכז את הכפתור */
-  padding-top: 28px;
-}
-
-button[type="submit"] {
-  padding: 14px 80px; /* רחב יותר */
-  font-size: 1.15rem;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  background: linear-gradient(90deg, #9b5de5 0%, #6366f1 50%, #22c55e 100%);
-  color: #ffffff;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  box-shadow: 0 12px 32px rgba(99,102,241,0.35);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-}
-
-button[type="submit"]:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 40px rgba(99,102,241,0.35);
-  opacity: 0.95;
-}
-
-button[type="submit"]:active {
-  transform: translateY(1px);
-  box-shadow: 0 8px 18px rgba(99,102,241,0.25);
-}
-/* ===== חוות דעת על המדריך - גרסה מעודנת ===== */
-.feedback-multi {
-  width: 100%;
-  padding: 10px 14px 10px;
-  border-radius: 22px; /* פחות תפוח */
+  padding: 10px 14px;
+  border-radius: 22px;
   border: 1px solid rgba(99,102,241,0.12);
   background: rgba(255,255,255,0.97);
-  box-shadow: 0 8px 20px rgba(99,102,241,0.10); /* צל עדין יותר */
+  box-shadow: 0 6px 16px rgba(99,102,241,0.10);
   margin-bottom: 14px;
 }
 
@@ -422,7 +210,12 @@ button[type="submit"]:active {
   color: var(--ink);
   font-size: 0.9rem;
   font-weight: 500;
-  box-shadow: 0 2px 5px rgba(99,102,241,0.1);
+  box-shadow: 0 2px 4px rgba(99,102,241,0.1);
+  transition: transform 0.1s ease-in-out;
+}
+
+.feedback-chip:hover {
+  transform: scale(1.05);
 }
 
 .feedback-chip .chip-remove {
@@ -467,6 +260,7 @@ button[type="submit"]:active {
   font-size: 11px;
   color: transparent;
   flex-shrink: 0;
+  transition: all 0.2s ease;
 }
 
 .feedback-option input[type="checkbox"]:checked + .check-icon {
@@ -474,6 +268,7 @@ button[type="submit"]:active {
   border-color: #6366f1;
   color: #22c55e;
   box-shadow: 0 2px 6px rgba(99,102,241,0.18);
+  transform: scale(1.2);
 }
 
 .feedback-option input[type="checkbox"]:checked + .check-icon + .text {
@@ -485,6 +280,34 @@ button[type="submit"]:active {
   background-color: rgba(99,102,241,0.05);
 }
 
+/* submit button */
+.submit-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 28px;
+}
 
+button[type="submit"] {
+  padding: 14px 80px;
+  font-size: 1.15rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #a78bfa 0%, #6366f1 60%, #60a5fa 100%);
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 10px 28px rgba(99,102,241,0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
 
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(99,102,241,0.35);
+  opacity: 0.95;
+}
 
+button[type="submit"]:active {
+  transform: translateY(1px);
+  box-shadow: 0 8px 18px rgba(99,102,241,0.25);
+}
