@@ -1,7 +1,7 @@
 # app.py
 # -*- coding: utf-8 -*-
-import re
 import os
+import re
 import json
 from datetime import datetime
 
@@ -10,7 +10,7 @@ import pytz
 import gspread
 from google.oauth2.service_account import Credentials
 
-# רשימת תחומים
+# ===== קונפיגורציה כללית =====
 SPECIALIZATIONS = [
     "רווחה", "מוגבלות", "זקנה", "ילדים ונוער", "בריאות הנפש",
     "שיקום", "משפחה", "נשים", "בריאות", "קהילה"
@@ -24,92 +24,145 @@ COLUMNS_ORDER = [
 ]
 
 app = Flask(__name__)
-app.secret_key = "secret-key-change-me"
+app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET", "dev-secret-change-me")
 
+
+# ===== חיבור ל-Google Sheets =====
 def get_worksheet():
     """
-    חיבור ל-Google Sheets באמצעות משתני סביבה:
-    GOOGLE_SERVICE_ACCOUNT_JSON - תוכן מלא של קובץ החשבון השירות (JSON)
-    SPREADSHEET_ID - ה-ID של הגיליון
+    שימוש במשתני סביבה ברנדר:
+    - GOOGLE_SERVICE_ACCOUNT_JSON : תוכן מלא של קובץ ה-JSON (Service Account)
+    - SPREADSHEET_ID              : ה-ID של קובץ ה-Google Sheets
     """
     creds_json = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
     if not creds_json:
-        raise RuntimeError("Missing GOOGLE_SERVICE_ACCOUNT_JSON env var")
+        raise RuntimeError("GOOGLE_SERVICE_ACCOUNT_JSON env var is missing")
 
     sheet_id = os.environ.get("SPREADSHEET_ID")
     if not sheet_id:
-        raise RuntimeError("Missing SPREADSHEET_ID env var")
+        raise RuntimeError("SPREADSHEET_ID env var is missing")
 
-    scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-    creds_dict = json.loads(creds_json)
+    # טוען את ה-JSON מה-Env
+    try:
+        creds_dict = json.loads(creds_json)
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f"Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON: {e}")
+
+    # הרשאות: קריאה/כתיבה לגיליון + גישה לקובץ בדרייב
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
     creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
     gc = gspread.authorize(creds)
-    return gc.open_by_key(sheet_id).sheet1
+
+    # גישה לגיליון
+    try:
+        sh = gc.open_by_key(sheet_id)
+    except Exception as e:
+        raise RuntimeError(f"Failed to open spreadsheet by key: {e}")
+
+    # משתמשים בגליון הראשון
+    return sh.sheet1
+
 
 def ensure_header(ws):
+    """
+    מוודא ששורת הכותרת בגליון תואמת ל-COLUMNS_ORDER.
+    אם אין נתונים או שהכותרת לא תואמת – מנקה וכותב כותרת חדשה.
+    """
     existing = ws.get_all_values()
     if not existing or existing[0] != COLUMNS_ORDER:
         ws.clear()
         ws.append_row(COLUMNS_ORDER)
 
+
+# ===== ראוט ראשי =====
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         f = request.form
         errors = []
 
+        # ולידציה בסיסית
         if not f.get("first_name"):
-            errors.append("יש למלא שם פרטי")
+            errors.append("יש למלא שם פרטי.")
         if not f.get("last_name"):
-            errors.append("יש למלא שם משפחה")
-        if f.get("specialization") == "בחר/י מהרשימה":
-            errors.append("יש לבחור תחום התמחות")
+            errors.append("יש למלא שם משפחה.")
+        if f.get("mentor_status", "") == "":
+            errors.append("יש לבחור סטטוס מדריך.")
+        if not f.get("institute"):
+            errors.append("יש למלא שם מוסד.")
+        if f.get("specialization") in ("", "בחר/י מהרשימה"):
+            errors.append("יש לבחור תחום התמחות.")
+        if not f.get("street"):
+            errors.append("יש למלא רחוב.")
+        if not f.get("city"):
+            errors.append("יש למלא עיר.")
+        if not f.get("postal_code"):
+            errors.append("יש למלא מיקוד.")
 
-        phone = f.get("phone", "").replace("-", "").replace(" ", "")
+        # טלפון
+        phone_raw = f.get("phone", "")
+        phone = phone_raw.replace("-", "").replace(" ", "")
         if not re.match(r"^(0?5\d{8})$", phone):
-            errors.append("מספר טלפון לא תקין (דוגמה: 0501234567)")
+            errors.append("מספר טלפון לא תקין (דוגמה: 0501234567).")
 
-        email = f.get("email", "")
+        # מייל
+        email = f.get("email", "").strip()
         if not re.match(r"^[^@]+@[^@]+\.[^@]+$", email):
-            errors.append("כתובת דוא\"ל לא תקינה")
+            errors.append("כתובת דוא\"ל לא תקינה.")
+
+        # מספר סטודנטים (ברירת מחדל 1)
+        num_students_raw = f.get("num_students", "1").strip()
+        if num_students_raw not in ("1", "2"):
+            errors.append("יש לבחור מספר סטודנטים 1 או 2.")
+        else:
+            num_students = int(num_students_raw)
 
         if errors:
             for e in errors:
                 flash(e, "error")
             return redirect(url_for("index"))
 
+        # בניית רשומה לשמירה
         tz = pytz.timezone("Asia/Jerusalem")
         record = {
             "תאריך שליחה": datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S"),
-            "שם פרטי": f.get("first_name", ""),
-            "שם משפחה": f.get("last_name", ""),
-            "סטטוס מדריך": f.get("mentor_status", ""),
-            "מוסד": f.get("institute", ""),
-            "תחום התמחות": f.get("specialization", ""),
-            "רחוב": f.get("street", ""),
-            "עיר": f.get("city", ""),
-            "מיקוד": f.get("postal_code", ""),
-            "מספר סטודנטים שניתן לקלוט (1 או 2)": int(f.get("num_students", 1)),
-            "מעוניין להמשיך": f.get("continue_mentoring", ""),
-            "בקשות מיוחדות": f.get("special_requests", ""),
+            "שם פרטי": f.get("first_name", "").strip(),
+            "שם משפחה": f.get("last_name", "").strip(),
+            "סטטוס מדריך": f.get("mentor_status", "").strip(),
+            "מוסד": f.get("institute", "").strip(),
+            "תחום התמחות": f.get("specialization", "").strip(),
+            "רחוב": f.get("street", "").strip(),
+            "עיר": f.get("city", "").strip(),
+            "מיקוד": f.get("postal_code", "").strip(),
+            "מספר סטודנטים שניתן לקלוט (1 או 2)": num_students,
+            "מעוניין להמשיך": f.get("continue_mentoring", "").strip(),
+            "בקשות מיוחדות": f.get("special_requests", "").strip(),
             "חוות דעת - נקודות": "; ".join(f.getlist("mentor_feedback_points")),
-            "חוות דעת - טקסט חופשי": f.get("mentor_feedback_text", ""),
+            "חוות דעת - טקסט חופשי": f.get("mentor_feedback_text", "").strip(),
             "טלפון": phone,
             "אימייל": email
         }
 
+        # שמירה ל-Google Sheets
         try:
             ws = get_worksheet()
             ensure_header(ws)
-            ws.append_row([record[c] for c in COLUMNS_ORDER])
+            ws.append_row([record[col] for col in COLUMNS_ORDER])
             flash("✅ הטופס נשלח ונשמר בהצלחה!", "success")
         except Exception as e:
-            print("Error saving to Google Sheets:", e)
-            flash("❌ שגיאה בשמירה לגיליון.", "error")
+            # חשוב כדי לראות בלוגים של Render מה הבעיה המדויקת
+            print("Error saving to Google Sheets:", repr(e))
+            flash("❌ שגיאה בשמירה לגיליון. נא לפנות לרואן / למערכת.", "error")
 
         return redirect(url_for("index"))
 
+    # GET
     return render_template("index.html", specializations=SPECIALIZATIONS)
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    # להרצה מקומית
+    app.run(host="0.0.0.0", port=5000, debug=True)
