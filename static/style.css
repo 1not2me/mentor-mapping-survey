@@ -24,6 +24,8 @@ body {
   direction: rtl;
   text-align: right;
   font-family: 'Assistant', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
   color: var(--ink);
   background:
     radial-gradient(1200px 600px at 15% 10%, var(--bg-2) 0%, transparent 70%),
@@ -64,14 +66,14 @@ body {
 
 .hero-text h1 {
   margin: 0 0 6px;
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.3rem;
+  font-weight: 800;
   color: var(--ink);
 }
 
 .hero-text p {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 1rem;
   color: #4b5563;
 }
 
@@ -85,7 +87,7 @@ body {
   padding: 10px 14px;
   margin-bottom: 6px;
   border-radius: 14px;
-  font-size: 0.92rem;
+  font-size: 0.98rem;
 }
 
 .msg-success {
@@ -101,7 +103,7 @@ body {
 /* form card */
 .form-card {
   margin-top: 18px;
-  padding: 22px 22px 26px;
+  padding: 24px 24px 28px;
   background: rgba(255,255,255,0.98);
   border-radius: 32px;
   box-shadow: var(--shadow-soft);
@@ -112,7 +114,7 @@ body {
 .form-section {
   padding: 14px 0 4px;
   border-bottom: 1px solid rgba(226,232,240,0.9);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .form-section:last-of-type {
@@ -123,7 +125,7 @@ body {
 
 .form-section h2 {
   margin: 0 0 8px;
-  font-size: 1.12rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #111827;
 }
@@ -132,7 +134,7 @@ body {
 label {
   display: block;
   margin-bottom: 10px;
-  font-size: 0.93rem;
+  font-size: 1rem;
   color: #374151;
 }
 
@@ -144,7 +146,7 @@ label {
 .hint {
   display: block;
   margin-top: 3px;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   color: #6b7280;
 }
 
@@ -153,9 +155,9 @@ select,
 textarea {
   width: 100%;
   margin-top: 4px;
-  padding: 10px 11px;
-  font-size: 0.95rem;
-  border-radius: 14px;
+  padding: 11px 12px;
+  font-size: 1rem;
+  border-radius: 16px;
   border: 1px solid #d1d5db;
   outline: none;
   background-color: #f9fafb;
@@ -170,9 +172,40 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(129,140,248,0.23);
 }
 
-/* multi-select style (feedback points) */
+/* multi-select style (חוות דעת על המדריך) */
 .multi-select {
-  min-height: 70px;
+  width: 100%;
+  min-height: 180px;
+  background-color: #f9fafc;
+  border: 2px solid #d1d5db;
+  border-radius: 22px;
+  padding: 10px;
+  font-size: 1rem;
+  color: #111827;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  overflow-y: auto;
+  transition: all 0.2s ease;
+}
+
+.multi-select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+  background-color: #ffffff;
+}
+
+.multi-select option {
+  padding: 8px 12px;
+  margin: 2px 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.multi-select option:hover,
+.multi-select option:checked {
+  background-color: #e0e7ff;
+  color: #1e3a8a;
 }
 
 /* radios / inline */
@@ -186,7 +219,7 @@ textarea:focus {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #374151;
 }
 
@@ -201,12 +234,12 @@ textarea:focus {
 .submit-wrap {
   display: flex;
   justify-content: flex-start;
-  padding-top: 14px;
+  padding-top: 16px;
 }
 
 button[type="submit"] {
-  padding: 11px 32px;
-  font-size: 1rem;
+  padding: 12px 36px;
+  font-size: 1.05rem;
   border: none;
   border-radius: 999px;
   cursor: pointer;
