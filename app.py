@@ -11,6 +11,10 @@ import pytz
 import gspread
 from google.oauth2.service_account import Credentials
 
+# ===== יצירת האפליקציה =====
+app = Flask(__name__)
+app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET", "dev-secret-change-me")
+
 # ------------ Maintenance (אופציונלי) ------------
 @app.before_request
 def maintenance_mode():
@@ -64,9 +68,6 @@ COLUMNS_ORDER = [
     "מעוניין להמשיך", "בקשות מיוחדות", "חוות דעת - נקודות",
     "חוות דעת - טקסט חופשי", "טלפון", "אימייל"
 ]
-
-app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET", "dev-secret-change-me")
 
 # ===== חיבור ל-Google Sheets =====
 def get_worksheet():
