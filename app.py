@@ -9,6 +9,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import pytz
 import gspread
 from google.oauth2.service_account import Credentials
+from markupsafe import Markup  # ← להוסיף שורה זו
 
 # ------------ Maintenance ------------
 @app.before_request
@@ -207,4 +208,5 @@ def index():
 if __name__ == "__main__":
     # להרצה מקומית
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
