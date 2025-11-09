@@ -6,12 +6,12 @@ import json
 from datetime import datetime
 
 from flask import Flask, render_template, request, redirect, url_for, flash
+from markupsafe import Markup
 import pytz
 import gspread
 from google.oauth2.service_account import Credentials
-from markupsafe import Markup  # ← להוסיף שורה זו
 
-# ------------ Maintenance ------------
+# ------------ Maintenance (אופציונלי) ------------
 @app.before_request
 def maintenance_mode():
     if os.getenv("MAINTENANCE_MODE", "0") == "1":
@@ -68,13 +68,12 @@ COLUMNS_ORDER = [
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET", "dev-secret-change-me")
 
-
 # ===== חיבור ל-Google Sheets =====
 def get_worksheet():
     """
-    שימוש במשתני סביבה ברנדר:
-    - GOOGLE_SERVICE_ACCOUNT_JSON : תוכן מלא של קובץ ה-JSON (Service Account)
-    - SPREADSHEET_ID              : ה-ID של קובץ ה-Google Sheets
+    מצפה ל:
+    - GOOGLE_SERVICE_ACCOUNT_JSON : תוכן מלא של קובץ ה-JSON
+    - SPREADSHEET_ID              : ה-ID של הגיליון (לא ה-URL)
     """
     creds_json = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
     if not creds_json:
@@ -84,13 +83,12 @@ def get_worksheet():
     if not sheet_id:
         raise RuntimeError("SPREADSHEET_ID env var is missing")
 
-    # טוען את ה-JSON מה-Env
+    # JSON מה־env
     try:
         creds_dict = json.loads(creds_json)
     except json.JSONDecodeError as e:
         raise RuntimeError(f"Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON: {e}")
 
-    # הרשאות: קריאה/כתיבה לגיליון + גישה לקובץ בדרייב
     scopes = [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive"
@@ -98,26 +96,18 @@ def get_worksheet():
     creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
     gc = gspread.authorize(creds)
 
-    # גישה לגיליון
     try:
         sh = gc.open_by_key(sheet_id)
     except Exception as e:
         raise RuntimeError(f"Failed to open spreadsheet by key: {e}")
 
-    # משתמשים בגליון הראשון
     return sh.sheet1
 
-
 def ensure_header(ws):
-    """
-    מוודא ששורת הכותרת בגליון תואמת ל-COLUMNS_ORDER.
-    אם אין נתונים או שהכותרת לא תואמת – מנקה וכותב כותרת חדשה.
-    """
     existing = ws.get_all_values()
     if not existing or existing[0] != COLUMNS_ORDER:
         ws.clear()
         ws.append_row(COLUMNS_ORDER)
-
 
 # ===== ראוט ראשי =====
 @app.route("/", methods=["GET", "POST"])
@@ -126,7 +116,7 @@ def index():
         f = request.form
         errors = []
 
-        # ולידציה בסיסית
+        # ולידציה
         if not f.get("first_name"):
             errors.append("יש למלא שם פרטי.")
         if not f.get("last_name"):
@@ -155,7 +145,7 @@ def index():
         if not re.match(r"^[^@]+@[^@]+\.[^@]+$", email):
             errors.append("כתובת דוא\"ל לא תקינה.")
 
-        # מספר סטודנטים (ברירת מחדל 1)
+        # מספר סטודנטים
         num_students_raw = f.get("num_students", "1").strip()
         if num_students_raw not in ("1", "2"):
             errors.append("יש לבחור מספר סטודנטים 1 או 2.")
@@ -167,7 +157,7 @@ def index():
                 flash(e, "error")
             return redirect(url_for("index"))
 
-        # בניית רשומה לשמירה
+        # בניית רשומה
         tz = pytz.timezone("Asia/Jerusalem")
         record = {
             "תאריך שליחה": datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S"),
@@ -195,18 +185,12 @@ def index():
             ws.append_row([record[col] for col in COLUMNS_ORDER])
             flash("✅ הטופס נשלח ונשמר בהצלחה!", "success")
         except Exception as e:
-            # חשוב כדי לראות בלוגים של Render מה הבעיה המדויקת
             print("Error saving to Google Sheets:", repr(e))
-            flash("❌ שגיאה בשמירה לגיליון. נא לפנות לרואן / למערכת.", "error")
+            flash("❌ שגיאה בשמירה לגיליון. נא לפנות למנהל המערכת.", "error")
 
         return redirect(url_for("index"))
 
-    # GET
     return render_template("index.html", specializations=SPECIALIZATIONS)
 
-
 if __name__ == "__main__":
-    # להרצה מקומית
     app.run(host="0.0.0.0", port=5000, debug=True)
-
-
