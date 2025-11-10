@@ -368,10 +368,11 @@ select[multiple]::-webkit-scrollbar-thumb {
 }
 
 /* ============= SUBMIT BUTTON ============= */
+/* ============= SUBMIT BUTTON ============= */
 .submit-wrap {
-  display:flex;
-  justify-content:center;
-  padding-top:18px;
+  display: flex;
+  justify-content: center;
+  padding-top: 18px;
 }
 
 button[type="submit"] {
@@ -380,11 +381,11 @@ button[type="submit"] {
   border: none;
   border-radius: 999px;
   cursor: pointer;
-  background-color: #e6374b;
-  color: #000000;
+  background: linear-gradient(90deg, #f05da8 0%, #a855f7 100%); /* כמו הכפתור הסגול-ורוד */
+  color: #ffffff;
   font-weight: 700;
   letter-spacing: 0.4px;
-  box-shadow: 0 8px 25px rgba(181,125,142,0.25);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.35); /* הצללה רכה */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -393,15 +394,16 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #f5d9f3;
-  box-shadow: 0 10px 30px rgba(181,125,142,0.35);
+  filter: brightness(1.1);
   transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(168, 85, 247, 0.45);
 }
 
 button[type="submit"]:active {
   transform: translateY(1px);
-  box-shadow: 0 5px 15px rgba(181,125,142,0.2);
+  box-shadow: 0 6px 18px rgba(168, 85, 247, 0.3);
 }
+
 
 /* ===== MULTI SELECT עם צ'יפים – חוות דעת על המדריך ===== */
 .tag-ms {
@@ -535,3 +537,4 @@ button[type="submit"]:active {
 #mentor_feedback_points {
   display: none !important;
 }
+
