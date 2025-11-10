@@ -1,94 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Assistant:wght@300;400;600;700&display=swap');
 
 :root {
-  --bg-1: #e0f7fa;
-  --bg-2: #ede7f6;
-  --bg-3: #fff3e0;
-  --bg-4: #fce4ec;
-  --bg-5: #e8f5e9;
+  /* צבעי רקע רכים אך ברורים יותר */
+  --bg-1: #eef2ff;
+  --bg-2: #e0f2fe;
+  --bg-3: #fdf2ff;
+  --bg-4: #f1f5f9;
+  --bg-5: #e9fffb;
+
   --ink: #0f172a;
-  --primary: #6366f1;
-  --primary-soft: rgba(99,102,241,0.18);
-  --radius-xl: 26px;
-  --shadow-soft: 0 18px 40px rgba(15,23,42,0.14);
+  --subtle: #6b7280;
+
+  --primary: #4f46e5;            /* סגול-כחול */
+  --primary-soft: rgba(79,70,229,0.16);
+  --accent: #22c55e;
+
+  --radius-xl: 30px;
+  --radius-lg: 24px;
+  --shadow-soft: 0 22px 70px rgba(15,23,42,0.12);
 }
 
 /* reset */
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  padding: 32px 16px 48px;
+  padding: 40px 16px 56px;
   min-height: 100vh;
   direction: rtl;
   text-align: right;
-  font-family: 'Assistant', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 22px;
-  line-height: 1.6;
+  font-family: 'Heebo', 'Assistant', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;                          /* הגופן גדול יותר */
+  line-height: 1.7;
   color: var(--ink);
+
+  /* רקע כמו הדוגמה: מרכז לבן, קצוות צבעוניים */
   background:
-    radial-gradient(1200px 600px at 15% 10%, var(--bg-2) 0%, transparent 70%),
-    radial-gradient(1000px 500px at 90% 0%, transparent 70%),
-    radial-gradient(900px 700px at 0% 100%, var(--bg-5) 0%, transparent 70%),
-    #ffffff;
+    radial-gradient(1200px 700px at 10% 0%,  rgba(129,140,248,0.19) 0%, transparent 70%),
+    radial-gradient(1200px 700px at 90% 0%,  rgba(56,189,248,0.16) 0%, transparent 70%),
+    radial-gradient(1300px 800px at 0% 100%, rgba(45,212,191,0.14) 0%, transparent 70%),
+    radial-gradient(1300px 800px at 100% 100%,rgba(248,250,252,1) 0%, transparent 70%),
+    #f9fafb;
 }
 
 /* layout */
 .page-wrap {
-  max-width: 1120px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
-/* header */
+/* HEADER - יותר קרוב לתמונה: כותרת גדולה, ממורכזת */
 .hero {
   display: flex;
   align-items: center;
   gap: 18px;
-  margin-bottom: 24px;
-  padding: 20px 24px;
-  background: rgba(255,255,255,0.97);
-  border-radius: var(--radius-xl);
-  box-shadow: 0 10px 30px rgba(15,23,42,0.12);
-  border: 1px solid rgba(148,163,253,0.26);
+  margin-bottom: 26px;
+  padding: 26px 32px;
+  background: rgba(255,255,255,0.98);
+  border-radius: 36px;
+  box-shadow: 0 20px 70px rgba(15,23,42,0.12);
+  border: 1px solid rgba(148,163,253,0.35);
 }
 
 .hero-icon {
-  font-size: 40px;
-  min-width: 56px;
-  min-height: 56px;
+  font-size: 46px;
+  min-width: 64px;
+  min-height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 18px;
+  border-radius: 22px;
   background: var(--primary-soft);
 }
 
 .hero-text h1 {
-  margin: 0 0 6px;
-  font-size: 2.4rem;
-  font-weight: 800;
+  margin: 0 0 8px;
+  font-size: clamp(2.4rem, 3.1vw + 1.1rem, 3.1rem);
+  font-weight: 700;
   color: var(--ink);
 }
 
 .hero-text p {
   margin: 0;
-  font-size: 1rem;
-  color: #4b5563;
+  font-size: 1.05rem;
+  color: var(--subtle);
 }
 
-/* messages */
+/* FLASH MESSAGES */
 .messages {
-  margin-top: 14px;
-  margin-bottom: 6px;
+  margin-top: 16px;
+  margin-bottom: 10px;
 }
 
 .msg {
-  padding: 10px 14px;
+  padding: 12px 18px;
   margin-bottom: 6px;
-  border-radius: 14px;
+  border-radius: 999px;
   font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8px 26px rgba(148,163,253,0.25);
 }
 
 .msg-success {
@@ -101,21 +116,21 @@ body {
   color: #991b1b;
 }
 
-/* form card */
+/* FORM CARD */
 .form-card {
   margin-top: 18px;
-  padding: 24px 24px 28px;
+  padding: 26px 26px 32px;
   background: rgba(255,255,255,0.99);
-  border-radius: 32px;
+  border-radius: 40px;
   box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(226,232,240,0.9);
+  border: 1px solid rgba(226,232,240,0.96);
 }
 
-/* sections */
+/* SECTIONS */
 .form-section {
-  padding: 14px 0 6px;
+  padding: 16px 0 8px;
   border-bottom: 1px solid rgba(226,232,240,0.9);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .form-section:last-of-type {
@@ -125,17 +140,17 @@ body {
 }
 
 .form-section h2 {
-  margin: 0 0 8px;
-  font-size: 1.3rem;
+  margin: 0 0 10px;
+  font-size: 1.38rem;
   font-weight: 600;
   color: #111827;
 }
 
-/* labels and inputs */
+/* LABELS + INPUTS */
 label {
   display: block;
-  margin-bottom: 10px;
-  font-size: 1rem;
+  margin-bottom: 12px;
+  font-size: 1.02rem;
   color: #374151;
 }
 
@@ -146,8 +161,8 @@ label {
 
 .hint {
   display: block;
-  margin-top: 3px;
-  font-size: 0.8rem;
+  margin-top: 4px;
+  font-size: 0.82rem;
   color: #6b7280;
 }
 
@@ -156,9 +171,9 @@ select,
 textarea {
   width: 100%;
   margin-top: 4px;
-  padding: 12px 14px;
-  font-size: 1rem;
-  border-radius: 18px;
+  padding: 14px 16px;
+  font-size: 1.02rem;
+  border-radius: 20px;
   border: 1px solid #d1d5db;
   outline: none;
   background-color: #f9fafb;
@@ -170,17 +185,17 @@ select:focus,
 textarea:focus {
   border-color: var(--primary);
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(129,140,248,0.23);
+  box-shadow: 0 0 0 3px rgba(129,140,248,0.24);
 }
 
 /* ===== חוות דעת על המדריך - גרסה מעודנת ===== */
 .feedback-multi {
   width: 100%;
   padding: 10px 14px;
-  border-radius: 22px;
-  border: 1px solid rgba(99,102,241,0.12);
-  background: rgba(255,255,255,0.97);
-  box-shadow: 0 6px 16px rgba(99,102,241,0.10);
+  border-radius: 24px;
+  border: 1px solid rgba(99,102,241,0.16);
+  background: rgba(255,255,255,0.99);
+  box-shadow: 0 10px 26px rgba(148,163,253,0.18);
   margin-bottom: 14px;
 }
 
@@ -188,9 +203,9 @@ textarea:focus {
   min-height: 34px;
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 6px;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .feedback-placeholder {
@@ -202,18 +217,19 @@ textarea:focus {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 3px 10px;
+  padding: 4px 11px;
   border-radius: 999px;
   background: rgba(99,102,241,0.12);
   color: var(--ink);
   font-size: 0.9rem;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(99,102,241,0.1);
-  transition: transform 0.1s ease-in-out;
+  box-shadow: 0 2px 5px rgba(129,140,248,0.22);
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 }
 
 .feedback-chip:hover {
-  transform: scale(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(129,140,248,0.28);
 }
 
 .feedback-chip .chip-remove {
@@ -224,19 +240,19 @@ textarea:focus {
 }
 
 .feedback-options {
-  margin-top: 3px;
-  padding-top: 3px;
-  border-top: 1px solid rgba(226,232,240,0.6);
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(226,232,240,0.7);
 }
 
 .feedback-option {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 4px;
-  border-radius: 10px;
+  padding: 6px 5px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   color: #111827;
   transition: background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
 }
@@ -248,7 +264,7 @@ textarea:focus {
 .check-icon {
   width: 18px;
   height: 18px;
-  border-radius: 6px;
+  border-radius: 50%;
   border: 1px solid #cbd5e1;
   display: flex;
   align-items: center;
@@ -262,13 +278,13 @@ textarea:focus {
 .feedback-option input[type="checkbox"]:checked + .check-icon {
   background: #ffffff;
   border-color: var(--primary);
-  color: #22c55e;
-  box-shadow: 0 2px 6px rgba(99,102,241,0.18);
-  transform: scale(1.2);
+  color: var(--accent);
+  box-shadow: 0 2px 6px rgba(99,102,241,0.22);
+  transform: scale(1.18);
 }
 
 .feedback-option input[type="checkbox"]:checked + .check-icon + .text {
-  color: #4f46e5;
+  color: var(--primary);
   font-weight: 600;
 }
 
@@ -276,42 +292,10 @@ textarea:focus {
   background-color: rgba(99,102,241,0.05);
 }
 
-/* submit button */
-.submit-wrap {
-  display: flex;
-  justify-content: center;
-  padding-top: 28px;
-}
-
-button[type="submit"] {
-  padding: 14px 80px;
-  font-size: 1.15rem;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  background: linear-gradient(90deg, #a78bfa 0%, #6366f1 60%, #60a5fa 100%);
-  color: #ffffff;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  box-shadow: 0 10px 28px rgba(99,102,241,0.3);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-}
-
-button[type="submit"]:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 36px rgba(99,102,241,0.35);
-  opacity: 0.95;
-}
-
-button[type="submit"]:active {
-  transform: translateY(1px);
-  box-shadow: 0 8px 18px rgba(99,102,241,0.25);
-}
-
 /* === רדיו "המשכיות הדרכה" === */
 .radio-group {
   display: flex;
-  gap: 24px;
+  gap: 26px;
   align-items: center;
   margin-top: 8px;
 }
@@ -319,21 +303,21 @@ button[type="submit"]:active {
 .radio-group input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border: 2px solid #cbd5e1;
   border-radius: 50%;
   background-color: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  margin-left: 6px;
+  margin-left: 8px;
   vertical-align: middle;
 }
 
 .radio-group input[type="radio"]:checked {
   border-color: var(--primary);
   background-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.22);
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.22);
 }
 
 .radio-group input[type="radio"]:hover {
@@ -342,9 +326,41 @@ button[type="submit"]:active {
 
 .radio-group label {
   font-weight: 500;
-  font-size: 16px;
-  color: #1e293b;
+  font-size: 1rem;
+  color: #1f2937;
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+/* SUBMIT BUTTON */
+.submit-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+}
+
+button[type="submit"] {
+  padding: 16px 96px;
+  font-size: 1.18rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #4f46e5 0%, #6366f1 40%, #22c55e 100%);
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  box-shadow: 0 18px 46px rgba(79,70,229,0.38);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 60px rgba(79,70,229,0.42);
+  opacity: 0.97;
+}
+
+button[type="submit"]:active {
+  transform: translateY(1px);
+  box-shadow: 0 12px 28px rgba(79,70,229,0.3);
 }
