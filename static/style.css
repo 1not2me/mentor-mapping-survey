@@ -396,3 +396,134 @@ button[type="submit"]:active {
   transform: translateY(1px);
   box-shadow: 0 5px 15px rgba(181,125,142,0.2);
 }
+/* ===== MULTI SELECT עם צ'יפים – חוות דעת על המדריך ===== */
+
+.tag-ms {
+  position: relative;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.tag-ms .control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 46px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: #f7f9fc;
+  border: 3px solid #d0d7e3;
+  cursor: pointer;
+  transition: all .18s ease;
+}
+
+.tag-ms .control:hover {
+  border-color: #c4ccda;
+}
+
+.tag-ms.open .control,
+.tag-ms .control:focus-within {
+  background: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--ring);
+}
+
+.tag-ms .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1 1 auto;
+}
+
+.tag-ms .placeholder {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.tag-ms .caret {
+  margin-inline-start: auto;
+  font-size: 14px;
+  color: #b57d8e;
+}
+
+/* צ'יפ בחר */
+.tag-ms .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #ffe5ea;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tag-ms .chip button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+}
+
+/* תפריט נפתח */
+.tag-ms .menu {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% + 4px);
+  max-height: 220px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 14px 32px rgba(15,23,42,.14);
+  padding: 4px 0;
+  display: none;
+  z-index: 40;
+}
+
+.tag-ms.open .menu {
+  display: block;
+}
+
+.tag-ms .item {
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #111827;
+  cursor: pointer;
+  transition: background-color .12s ease, color .12s ease;
+}
+
+.tag-ms .item:hover {
+  background: #f9fafb;
+}
+
+.tag-ms .item .check {
+  font-size: 14px;
+  color: #22c55e;
+  opacity: 0;
+  transition: opacity .12s ease;
+}
+
+/* מצב נבחר בתפריט */
+.tag-ms .item.active {
+  background: #fff1f5;
+  color: #b91c1c;
+}
+
+.tag-ms .item.active .check {
+  opacity: 1;
+}
+
+/* הסלקט החבוי לא מוצג */
+#mentor_feedback_points {
+  display: none !important;
+}
+
+
