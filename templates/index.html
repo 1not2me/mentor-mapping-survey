@@ -74,7 +74,7 @@
         <label>
           תחום התמחות <span class="req">*</span>
           <select name="specialization" required>
-            <option>בחר/י מהרשימה</option>
+            <option value="">בחר/י מהרשימה</option>
             {% for s in specializations %}
               <option value="{{ s }}">{{ s }}</option>
             {% endfor %}
@@ -140,46 +140,45 @@
         </label>
       </section>
 
-      <!-- חוות דעת על המדריך -->
+      <!-- חוות דעת על המדריך - רשימה נפתחת עם צ'יפים -->
       <section class="form-section">
         <h2>חוות דעת על המדריך</h2>
 
-        <div class="feedback-multi" data-feedback-multi>
-          <div class="feedback-selected"></div>
+        <div class="tag-ms" data-ms="mentor_feedback">
+          <div class="control">
+            <div class="chips" data-ms-chips></div>
+            <div class="placeholder">
+              בחר/י נקודות רלוונטיות (אפשר יותר מאפשרות אחת)
+            </div>
+            <div class="caret"></div>
+          </div>
 
-          <div class="feedback-options">
-            <label class="feedback-option">
-              <input type="checkbox" name="mentor_feedback_points"
-                     value="זמינות גבוהה" data-label="זמינות גבוהה">
-              <span class="check-icon">✔</span>
-              <span class="text">זמינות גבוהה</span>
-            </label>
-
-            <label class="feedback-option">
-              <input type="checkbox" name="mentor_feedback_points"
-                     value="ליווי מקצועי משמעותי" data-label="ליווי מקצועי משמעותי">
-              <span class="check-icon">✔</span>
-              <span class="text">ליווי מקצועי משמעותי</span>
-            </label>
-
-            <label class="feedback-option">
-              <input type="checkbox" name="mentor_feedback_points"
-                     value="שיתוף פעולה עם המוסד" data-label="שיתוף פעולה עם המוסד">
-              <span class="check-icon">✔</span>
-              <span class="text">שיתוף פעולה עם המוסד</span>
-            </label>
-
-            <label class="feedback-option">
-              <input type="checkbox" name="mentor_feedback_points"
-                     value="צורך בחיזוק בליווי" data-label="צורך בחיזוק בליווי">
-              <span class="check-icon">✔</span>
-              <span class="text">צורך בחיזוק בליווי</span>
-            </label>
+          <div class="menu">
+            <div class="item" data-value="זמינות גבוהה">
+              זמינות גבוהה <span class="check">✓</span>
+            </div>
+            <div class="item" data-value="ליווי מקצועי משמעותי">
+              ליווי מקצועי משמעותי <span class="check">✓</span>
+            </div>
+            <div class="item" data-value="שיתוף פעולה עם המוסד">
+              שיתוף פעולה עם המוסד <span class="check">✓</span>
+            </div>
+            <div class="item" data-value="צורך בחיזוק בליווי">
+              צורך בחיזוק בליווי <span class="check">✓</span>
+            </div>
           </div>
         </div>
 
+        <!-- select חבוי שנשלח לשרת -->
+        <select name="mentor_feedback_points" id="mentor_feedback_points" multiple hidden>
+          <option value="זמינות גבוהה"></option>
+          <option value="ליווי מקצועי משמעותי"></option>
+          <option value="שיתוף פעולה עם המוסד"></option>
+          <option value="צורך בחיזוק בליווי"></option>
+        </select>
+
         <span class="hint">
-          ניתן לבחור כמה נקודות שרוצים. לחיצה על תגית עם ✕ תבטל את הבחירה.
+          אפשר לבחור כמה אפשרויות. לחיצה על ✕ בצ'יפ מסירה את הבחירה.
         </span>
 
         <label>
@@ -199,21 +198,91 @@
         </label>
 
         <label>
-          כתובת דוא&quot;ל <span class="req">*</span>
+          כתובת דוא"ל <span class="req">*</span>
           <input type="email" name="email" required placeholder="name@example.com">
         </label>
       </section>
 
-      <button type="submit">
-  <span>📨</span>
-  שליחת הטופס
-</button>
-
+      <!-- כפתור שליחה -->
+      <div class="submit-wrap">
+        <button type="submit">
+          <span>📨</span>
+          שליחת הטופס
+        </button>
+      </div>
 
     </form>
   </main>
 </div>
 
+<!-- סקריפט לרשימה הנפתחת עם צ'יפים -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const ms = document.querySelector('[data-ms="mentor_feedback"]');
+  if (!ms) return;
+
+  const control = ms.querySelector('.control');
+  const menu = ms.querySelector('.menu');
+  const chipsBox = ms.querySelector('[data-ms-chips]');
+  const placeholder = ms.querySelector('.placeholder');
+  const hiddenSelect = document.getElementById('mentor_feedback_points');
+
+  function updatePlaceholder() {
+    const hasSelected = hiddenSelect && hiddenSelect.selectedOptions.length > 0;
+    placeholder.style.display = hasSelected ? 'none' : 'block';
+  }
+
+  function renderChips() {
+    chipsBox.innerHTML = '';
+    Array.from(hiddenSelect.selectedOptions).forEach(opt => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.dataset.value = opt.value;
+      chip.innerHTML = opt.value + '<button type="button">&times;</button>';
+      chip.querySelector('button').addEventListener('click', function () {
+        setSelected(opt.value, false);
+      });
+      chipsBox.appendChild(chip);
+    });
+    updatePlaceholder();
+  }
+
+  function setSelected(value, on) {
+    const option = Array.from(hiddenSelect.options).find(o => o.value === value);
+    if (!option) return;
+    option.selected = on;
+
+    menu.querySelectorAll('.item').forEach(item => {
+      if (item.dataset.value === value) {
+        item.classList.toggle('active', on);
+      }
+    });
+
+    renderChips();
+  }
+
+  control.addEventListener('click', function () {
+    ms.classList.toggle('open');
+  });
+
+  menu.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('click', function () {
+      const value = item.dataset.value;
+      const option = Array.from(hiddenSelect.options).find(o => o.value === value);
+      const shouldSelect = !(option && option.selected);
+      setSelected(value, shouldSelect);
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!ms.contains(e.target)) {
+      ms.classList.remove('open');
+    }
+  });
+
+  renderChips();
+});
+</script>
+
 </body>
 </html>
-
