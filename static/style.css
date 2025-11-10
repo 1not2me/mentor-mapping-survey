@@ -441,7 +441,10 @@ button[type="submit"]:active {
 .tag-ms .placeholder {
   font-size: 14px;
   color: #9ca3af;
+  direction: rtl;
+  text-align: right;
 }
+
 
 .tag-ms .caret {
   font-size: 14px;
@@ -530,3 +533,4 @@ button[type="submit"]:active {
 #mentor_feedback_points {
   display: none !important;
 }
+
