@@ -287,21 +287,22 @@ select[multiple]::-webkit-scrollbar-thumb {
 
 /* ============= RADIO ============= */
 .radio-group {
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:24px;
-  flex-wrap:wrap;
-  margin-top: 4px;
+  display: flex;
+  flex-direction: row-reverse; /* הופך את הסדר ל־RTL */
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px; /* רווח בין האפשרויות */
+  direction: rtl;
+  text-align: right;
 }
 
 .radio-group label {
-  flex-direction:row;
-  align-items:center;
-  gap:6px;
-  margin-top:0;
-  margin-bottom:0;
-  font-size:15px;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse; /* כדי שהטקסט יהיה מימין לכפתור */
+  gap: 6px;
+  font-size: 16px;
+  color: #0f172a;
 }
 
 .radio-group input[type="radio"] {
@@ -533,4 +534,5 @@ button[type="submit"]:active {
 #mentor_feedback_points {
   display: none !important;
 }
+
 
