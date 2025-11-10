@@ -286,12 +286,13 @@ select[multiple]::-webkit-scrollbar-thumb {
 }
 
 /* ============= RADIO ============= */
+/* רדיו אחיד לכל הקבוצות */
 .radio-group {
   display: flex;
-  flex-direction: row-reverse; /* הופך את הסדר ל־RTL */
+  flex-direction: row-reverse;
   justify-content: flex-start;
   align-items: center;
-  gap: 40px; /* רווח בין האפשרויות */
+  gap: 40px;
   direction: rtl;
   text-align: right;
 }
@@ -299,41 +300,43 @@ select[multiple]::-webkit-scrollbar-thumb {
 .radio-group label {
   display: flex;
   align-items: center;
-  flex-direction: row-reverse; /* כדי שהטקסט יהיה מימין לכפתור */
+  flex-direction: row-reverse;
   gap: 6px;
   font-size: 16px;
   color: #0f172a;
+  cursor: pointer;
 }
 
 .radio-group input[type="radio"] {
-  appearance:none;
-  -webkit-appearance:none;
-  width:18px;
-  height:18px;
-  border:2px solid #cbd5e1;
-  border-radius:50%;
-  background:#fff;
-  position:relative;
-  cursor:pointer;
-  transition:all .15s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  background: #fff;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 .radio-group input[type="radio"]:hover {
-  border-color:#e11d48;
+  border-color: #b57d8e;
 }
 
 .radio-group input[type="radio"]:checked {
-  border-color:#e11d48;
-  box-shadow:0 0 0 3px rgba(225,29,72,0.18);
+  border-color: #b57d8e;
+  box-shadow: 0 0 0 3px rgba(181, 125, 142, 0.2);
 }
 
 .radio-group input[type="radio"]:checked::after {
-  content:"";
-  position:absolute;
-  inset:4px;
-  border-radius:50%;
-  background:#e11d48;
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #b57d8e;
 }
+
 
 /* ============= CHECKBOX MULTI (אם תשתמשי) ============= */
 .multi-check-group {
@@ -534,5 +537,6 @@ button[type="submit"]:active {
 #mentor_feedback_points {
   display: none !important;
 }
+
 
 
