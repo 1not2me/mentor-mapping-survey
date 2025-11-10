@@ -348,7 +348,7 @@ button[type="submit"] {
   border-radius: 999px;
   cursor: pointer;
   background-color: #e6374b; /* 💗 צבע בהיר ועדין */
-  color: #5b21b6; /* טקסט סגול כהה */
+  color: #000000; /* טקסט סגול כהה */
   font-weight: 700;
   letter-spacing: 0.4px;
   box-shadow: 0 8px 25px rgba(170, 102, 255, 0.25); /* הצללה רכה */
@@ -371,5 +371,6 @@ button[type="submit"]:active {
   transform: translateY(1px);
   box-shadow: 0 5px 15px rgba(170, 102, 255, 0.2);
 }
+
 
 
