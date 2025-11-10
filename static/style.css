@@ -311,3 +311,57 @@ button[type="submit"]:active {
   transform: translateY(1px);
   box-shadow: 0 8px 18px rgba(99,102,241,0.25);
 }
+/* עיצוב קבוצת רדיו */
+.radio-group {
+  display: flex;
+  gap: 20px;              /* רווח בין האפשרויות */
+  align-items: center;
+  margin-top: 8px;
+}
+
+/* עיצוב כללי לרדיו */
+.radio-group input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e1; /* אפור בהיר */
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* כשנבחר */
+.radio-group input[type="radio"]:checked {
+  border-color: #3b82f6;      /* כחול */
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+}
+
+/* אפקט ריחוף */
+.radio-group input[type="radio"]:hover {
+  border-color: #3b82f6;
+}
+
+/* עיצוב הטקסט ליד הרדיו */
+.radio-group label {
+  font-weight: 500;
+  font-size: 16px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* תגית הכותרת של הסעיף */
+.section-label {
+  font-weight: 600;
+  font-size: 17px;
+  color: #0f172a;
+  margin-bottom: 6px;
+  display: block;
+}
+
