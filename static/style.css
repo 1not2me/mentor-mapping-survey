@@ -30,7 +30,7 @@ body {
   color: var(--ink);
   background:
     radial-gradient(1200px 600px at 15% 10%, var(--bg-2) 0%, transparent 70%),
-    radial-gradient(1000px 500px at 90% 0%, var(--bg-3) 0%, transparent 70%),
+    radial-gradient(1000px 500px at 90% 0%, transparent 70%),
     radial-gradient(900px 700px at 0% 100%, var(--bg-5) 0%, transparent 70%),
     #ffffff;
 }
@@ -173,7 +173,7 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(129,140,248,0.23);
 }
 
-/* ----- חוות דעת על המדריך - גרסה מעודנת ----- */
+/* ===== חוות דעת על המדריך - גרסה מעודנת ===== */
 .feedback-multi {
   width: 100%;
   padding: 10px 14px;
@@ -184,7 +184,6 @@ textarea:focus {
   margin-bottom: 14px;
 }
 
-/* שורת התגיות */
 .feedback-selected {
   min-height: 34px;
   display: flex;
@@ -199,7 +198,6 @@ textarea:focus {
   color: #9ca3af;
 }
 
-/* תגית נבחרת */
 .feedback-chip {
   display: inline-flex;
   align-items: center;
@@ -225,14 +223,12 @@ textarea:focus {
   color: #6b7280;
 }
 
-/* רשימת האפשרויות */
 .feedback-options {
   margin-top: 3px;
   padding-top: 3px;
   border-top: 1px solid rgba(226,232,240,0.6);
 }
 
-/* כל אפשרות */
 .feedback-option {
   display: flex;
   align-items: center;
@@ -265,7 +261,7 @@ textarea:focus {
 
 .feedback-option input[type="checkbox"]:checked + .check-icon {
   background: #ffffff;
-  border-color: #6366f1;
+  border-color: var(--primary);
   color: #22c55e;
   box-shadow: 0 2px 6px rgba(99,102,241,0.18);
   transform: scale(1.2);
@@ -311,42 +307,39 @@ button[type="submit"]:active {
   transform: translateY(1px);
   box-shadow: 0 8px 18px rgba(99,102,241,0.25);
 }
-/* עיצוב קבוצת רדיו */
+
+/* === רדיו "המשכיות הדרכה" === */
 .radio-group {
   display: flex;
-  gap: 20px;              /* רווח בין האפשרויות */
+  gap: 24px;
   align-items: center;
   margin-top: 8px;
 }
 
-/* עיצוב כללי לרדיו */
 .radio-group input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid #cbd5e1; /* אפור בהיר */
+  border: 2px solid #cbd5e1;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   margin-left: 6px;
   vertical-align: middle;
 }
 
-/* כשנבחר */
 .radio-group input[type="radio"]:checked {
-  border-color: #3b82f6;      /* כחול */
-  background-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+  border-color: var(--primary);
+  background-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.22);
 }
 
-/* אפקט ריחוף */
 .radio-group input[type="radio"]:hover {
-  border-color: #3b82f6;
+  border-color: var(--primary);
 }
 
-/* עיצוב הטקסט ליד הרדיו */
 .radio-group label {
   font-weight: 500;
   font-size: 16px;
@@ -355,13 +348,3 @@ button[type="submit"]:active {
   align-items: center;
   gap: 6px;
 }
-
-/* תגית הכותרת של הסעיף */
-.section-label {
-  font-weight: 600;
-  font-size: 17px;
-  color: #0f172a;
-  margin-bottom: 6px;
-  display: block;
-}
-
