@@ -4,216 +4,222 @@
   <meta charset="utf-8">
   <title>מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- משתמשים ב-style.css שצירפת -->
+  <!-- להשתמש בקובץ ה-CSS שהדבקת -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<header class="hero">
-  <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</h1>
-  <p class="sub">
-    שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
-    אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
-  </p>
-</header>
+<div class="container">
 
-<main class="container">
+  <!-- HEADER -->
+  <header class="hero">
+    <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</h1>
+    <p class="sub">
+      שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
+      אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
+    </p>
+  </header>
 
-  <!-- הודעות פלאש -->
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, msg in messages %}
-        <div class="msg msg-{{ category }}">{{ msg }}</div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
+  <!-- FLASH -->
+  <div class="messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat, msg in messages %}
+          <div class="msg msg-{{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
 
-  <!-- כרטיס טופס -->
-  <form method="post" class="card">
+  <!-- FORM -->
+  <main>
+    <form method="post" class="card">
 
-    <!-- פרטים אישיים -->
-    <section class="step active">
-      <h2>פרטים אישיים</h2>
+      <!-- פרטים אישיים -->
+      <section>
+        <h2>פרטים אישיים</h2>
 
-      <label class="required">
-        <span class="label-text">שם פרטי</span>
-        <input type="text" name="first_name" required>
-      </label>
+        <label class="required">
+          <span class="label-text">שם פרטי</span>
+          <input type="text" name="first_name" required>
+        </label>
 
-      <label class="required">
-        <span class="label-text">שם משפחה</span>
-        <input type="text" name="last_name" required>
-      </label>
+        <label class="required">
+          <span class="label-text">שם משפחה</span>
+          <input type="text" name="last_name" required>
+        </label>
 
-      <label class="required">
-        <span class="label-text">סטטוס מדריך</span>
-        <select name="mentor_status" required>
-          <option value="">בחר/י מהאפשרויות</option>
-          <option value="מדריך חדש (נדרש קורס)">מדריך חדש (נדרש קורס)</option>
-          <option value="מדריך ותיק">מדריך ותיק</option>
-          <option value="רכז/ת">רכז/ת</option>
-        </select>
-      </label>
-    </section>
+        <label class="required">
+          <span class="label-text">סטטוס מדריך</span>
+          <select name="mentor_status" required>
+            <option value="">בחר/י מהאפשרויות</option>
+            <option value="מדריך חדש (נדרש קורס)">מדריך חדש (נדרש קורס)</option>
+            <option value="מדריך ותיק">מדריך ותיק</option>
+            <option value="רכז/ת">רכז/ת</option>
+          </select>
+        </label>
+      </section>
 
-    <!-- מוסד ההכשרה -->
-    <section class="step active">
-      <h2>מוסד ההכשרה</h2>
+      <!-- מוסד ההכשרה -->
+      <section>
+        <h2>מוסד ההכשרה</h2>
 
-      <label class="required">
-        <span class="label-text">שם המוסד</span>
-        <input type="text" name="institute" required>
-      </label>
+        <label class="required">
+          <span class="label-text">שם המוסד</span>
+          <input type="text" name="institute" required>
+        </label>
 
-      <label class="required">
-        <span class="label-text">תחום התמחות</span>
-        <select name="specialization" required>
-          <option value="">בחר/י מהרשימה</option>
-          {% for s in specializations %}
-            <option value="{{ s }}">{{ s }}</option>
-          {% endfor %}
-        </select>
-      </label>
-    </section>
+        <label class="required">
+          <span class="label-text">תחום התמחות</span>
+          <select name="specialization" required>
+            <option value="">בחר/י מהרשימה</option>
+            {% for s in specializations %}
+              <option value="{{ s }}">{{ s }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </section>
 
-    <!-- כתובת המוסד -->
-    <section class="step active">
-      <h2>כתובת המוסד</h2>
+      <!-- כתובת המוסד -->
+      <section>
+        <h2>כתובת המוסד</h2>
 
-      <label class="required">
-        <span class="label-text">רחוב</span>
-        <input type="text" name="street" required>
-      </label>
+        <label class="required">
+          <span class="label-text">רחוב</span>
+          <input type="text" name="street" required>
+        </label>
 
-      <label class="required">
-        <span class="label-text">עיר</span>
-        <input type="text" name="city" required>
-      </label>
+        <label class="required">
+          <span class="label-text">עיר</span>
+          <input type="text" name="city" required>
+        </label>
 
-      <label class="required">
-        <span class="label-text">מיקוד</span>
-        <input type="text" name="postal_code" required>
-      </label>
-    </section>
+        <label class="required">
+          <span class="label-text">מיקוד</span>
+          <input type="text" name="postal_code" required>
+        </label>
+      </section>
 
-    <!-- קליטת סטודנטים -->
-    <section class="step active">
-      <h2>קליטת סטודנטים</h2>
+      <!-- קליטת סטודנטים -->
+      <section>
+        <h2>קליטת סטודנטים</h2>
+        <label class="required">
+          <span class="label-text">מספר סטודנטים שניתן לקלוט (1 או 2)</span>
+          <select name="num_students" required>
+            <option value="">בחר/י</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </label>
+      </section>
 
-      <label class="required">
-        <span class="label-text">מספר סטודנטים שניתן לקלוט (1 או 2)</span>
-        <select name="num_students" required>
-          <option value="">בחר/י</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-        </select>
-      </label>
-    </section>
+      <!-- המשכיות הדרכה -->
+      <section>
+        <h2>המשכיות הדרכה</h2>
+        <label class="required">
+          <span class="label-text">האם יש כוונה להמשיך הדרכה לשנה נוספת?</span>
+          <div class="radio-group">
+            <label class="radio-option">
+              <span>כן</span>
+              <input type="radio" name="continue_mentoring" value="כן" required>
+            </label>
+            <label class="radio-option">
+              <span>לא</span>
+              <input type="radio" name="continue_mentoring" value="לא" required>
+            </label>
+          </div>
+        </label>
+      </section>
 
-    <!-- המשכיות הדרכה -->
-    <section class="step active">
-      <h2>המשכיות הדרכה</h2>
+      <!-- בקשות מיוחדות -->
+      <section>
+        <h2>בקשות מיוחדות</h2>
+        <label>
+          <span class="label-text">בקשות מיוחדות (שעות, שפות, נגישות, אילוצים וכו')</span>
+          <textarea name="special_requests" rows="3"
+                    placeholder="כתוב/י כאן כל בקשה שתרצה שניקח בחשבון בשיבוץ"></textarea>
+        </label>
+      </section>
 
-      <label class="required">
-        <span class="label-text">האם יש כוונה להמשך הדרכה לשנה נוספת?</span>
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="continue_mentoring" value="כן" required>
-            <span>כן</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="continue_mentoring" value="לא" required>
-            <span>לא</span>
-          </label>
-        </div>
-      </label>
-    </section>
+      <!-- חוות דעת על המדריך | MULTISELECT עם צ'יפים -->
+      <section>
+        <h2>חוות דעת על המדריך</h2>
 
-    <!-- בקשות מיוחדות -->
-    <section class="step active">
-      <h2>בקשות מיוחדות</h2>
+        <label>
+          <span class="label-text">נקודות רלוונטיות (ניתן לבחור יותר מאפשרות אחת)</span>
 
-      <label>
-        <span class="label-text">בקשות מיוחדות (למשל: הדרכה בערב, שפות, נגישות, אילוצים)</span>
-        <textarea name="special_requests" rows="3"
-                  placeholder="כתוב/י כאן כל בקשה שתרצה שניקח בחשבון בשיבוץ"></textarea>
-      </label>
-    </section>
-
-    <!-- חוות דעת על המדריך - MULTI SELECT עם צ'יפים -->
-    <section class="step active">
-      <h2>חוות דעת על המדריך</h2>
-
-      <label>
-        <span class="label-text">בחר/י נקודות רלוונטיות (ניתן לבחור יותר מאפשרות אחת)</span>
-
-        <div class="tag-ms" data-ms="mentor_feedback">
-          <div class="control">
-            <div class="chips" data-ms-chips></div>
-            <div class="placeholder">
-              בחר/י נקודות רלוונטיות (אפשר יותר מאפשרות אחת)
+          <div class="tag-ms" data-ms="mentor_feedback">
+            <div class="control">
+              <div class="chips" data-ms-chips></div>
+              <div class="placeholder">
+                בחר/י נקודות רלוונטיות (ניתן לבחור יותר מאפשרות אחת)
+              </div>
+              <div class="caret">▼</div>
             </div>
-            <div class="caret">▼</div>
+
+            <div class="menu">
+              <div class="item" data-value="זמינות גבוהה">
+                <span>זמינות גבוהה</span>
+                <span class="check">✓</span>
+              </div>
+              <div class="item" data-value="ליווי מקצועי משמעותי">
+                <span>ליווי מקצועי משמעותי</span>
+                <span class="check">✓</span>
+              </div>
+              <div class="item" data-value="שיתוף פעולה עם המוסד">
+                <span>שיתוף פעולה עם המוסד</span>
+                <span class="check">✓</span>
+              </div>
+              <div class="item" data-value="צורך בחיזוק בליווי">
+                <span>צורך בחיזוק בליווי</span>
+                <span class="check">✓</span>
+              </div>
+            </div>
           </div>
 
-          <div class="menu">
-            <div class="item" data-value="זמינות גבוהה">
-              <span>זמינות גבוהה</span><span class="check">✓</span>
-            </div>
-            <div class="item" data-value="ליווי מקצועי משמעותי">
-              <span>ליווי מקצועי משמעותי</span><span class="check">✓</span>
-            </div>
-            <div class="item" data-value="שיתוף פעולה עם המוסד">
-              <span>שיתוף פעולה עם המוסד</span><span class="check">✓</span>
-            </div>
-            <div class="item" data-value="צורך בחיזוק בליווי">
-              <span>צורך בחיזוק בליווי</span><span class="check">✓</span>
-            </div>
-          </div>
-        </div>
-      </label>
+          <!-- select חבוי שנשלח לשרת -->
+          <select id="mentor_feedback_points" name="mentor_feedback_points" multiple>
+            <option value="זמינות גבוהה"></option>
+            <option value="ליווי מקצועי משמעותי"></option>
+            <option value="שיתוף פעולה עם המוסד"></option>
+            <option value="צורך בחיזוק בליווי"></option>
+          </select>
+        </label>
 
-      <!-- select חבוי שנשלח לשרת -->
-      <select name="mentor_feedback_points" id="mentor_feedback_points" multiple>
-        <option value="זמינות גבוהה">זמינות גבוהה</option>
-        <option value="ליווי מקצועי משמעותי">ליווי מקצועי משמעותי</option>
-        <option value="שיתוף פעולה עם המוסד">שיתוף פעולה עם המוסד</option>
-        <option value="צורך בחיזוק בליווי">צורך בחיזוק בליווי</option>
-      </select>
+        <label>
+          <span class="label-text">כתיבה חופשית (פירוט נוסף)</span>
+          <textarea name="mentor_feedback_text" rows="3"
+                    placeholder="כתוב/י כאן חוות דעת חופשית..."></textarea>
+        </label>
+      </section>
 
-      <label>
-        <span class="label-text">כתיבה חופשית (פירוט נוסף)</span>
-        <textarea name="mentor_feedback_text" rows="3"
-                  placeholder="כתוב/י כאן חוות דעת חופשית..."></textarea>
-      </label>
-    </section>
+      <!-- פרטי התקשרות -->
+      <section>
+        <h2>פרטי התקשרות</h2>
 
-    <!-- פרטי התקשרות -->
-    <section class="step active">
-      <h2>פרטי התקשרות</h2>
+        <label class="required">
+          <span class="label-text">מספר טלפון</span>
+          <input type="tel" name="phone" required placeholder="0501234567">
+        </label>
 
-      <label class="required">
-        <span class="label-text">מספר טלפון</span>
-        <input type="tel" name="phone" required placeholder="0501234567">
-      </label>
+        <label class="required">
+          <span class="label-text">כתובת דוא״ל</span>
+          <input type="email" name="email" required placeholder="name@example.com">
+        </label>
+      </section>
 
-      <label class="required">
-        <span class="label-text">כתובת דוא"ל</span>
-        <input type="email" name="email" required placeholder="name@example.com">
-      </label>
-    </section>
+      <!-- כפתור שליחה -->
+      <div class="submit-wrap">
+        <button type="submit" class="btn primary">
+          📨 שליחת הטופס
+        </button>
+      </div>
 
-    <!-- כפתור שליחה -->
-    <div class="wizard-nav" style="border-top:none; padding-top:12px; justify-content:center;">
-      <button type="submit" class="btn primary">
-        📨 שליחת הטופס
-      </button>
-    </div>
+    </form>
+  </main>
+</div>
 
-  </form>
-</main>
-
-<!-- JS לצ'יפים של חוות דעת (מותאם ל-CSS שלך) -->
+<!-- סקריפט לצ'יפים -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const ms = document.querySelector('[data-ms="mentor_feedback"]');
@@ -224,13 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const chipsBox = ms.querySelector('[data-ms-chips]');
   const placeholder = ms.querySelector('.placeholder');
   const hiddenSelect = document.getElementById('mentor_feedback_points');
-
-  // להסתיר את ה-select בעזרת ה-CSS הקיים (ולא עם hidden שמפריע לפעמים)
-  hiddenSelect.style.position = 'absolute';
-  hiddenSelect.style.opacity = '0';
-  hiddenSelect.style.pointerEvents = 'none';
-  hiddenSelect.style.height = '0';
-  hiddenSelect.style.margin = '0';
+  if (!control || !menu || !chipsBox || !placeholder || !hiddenSelect) return;
 
   function getSelectedValues() {
     return Array.from(hiddenSelect.options)
@@ -239,25 +239,20 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updatePlaceholder() {
-    const hasSelected = getSelectedValues().length > 0;
-    placeholder.style.display = hasSelected ? 'none' : 'block';
+    placeholder.style.display = getSelectedValues().length ? 'none' : 'block';
   }
 
   function renderChips() {
     chipsBox.innerHTML = '';
     const values = getSelectedValues();
-    if (!values.length) {
-      updatePlaceholder();
-      return;
-    }
 
-    values.forEach(value => {
+    values.forEach(v => {
       const chip = document.createElement('div');
       chip.className = 'chip';
-      chip.dataset.value = value;
-      chip.innerHTML = `<span>${value}</span><button type="button">&times;</button>`;
-      chip.querySelector('button').addEventListener('click', function () {
-        setSelected(value, false);
+      chip.innerHTML = '<span>' + v + '</span><button type="button">&times;</button>';
+      chip.querySelector('button').addEventListener('click', function (e) {
+        e.stopPropagation();
+        setSelected(v, false);
       });
       chipsBox.appendChild(chip);
     });
@@ -265,10 +260,17 @@ document.addEventListener('DOMContentLoaded', function () {
     updatePlaceholder();
   }
 
-  function syncMenuActive() {
+  function syncMenu() {
     const selected = new Set(getSelectedValues());
     menu.querySelectorAll('.item').forEach(item => {
-      item.classList.toggle('active', selected.has(item.dataset.value));
+      const v = item.dataset.value;
+      const active = selected.has(v);
+      item.classList.toggle('active', active);
+
+      const check = item.querySelector('.check');
+      if (check) {
+        check.style.opacity = active ? '1' : '0';
+      }
     });
   }
 
@@ -276,37 +278,40 @@ document.addEventListener('DOMContentLoaded', function () {
     const opt = Array.from(hiddenSelect.options).find(o => o.value === value);
     if (!opt) return;
     opt.selected = !!on;
-    syncMenuActive();
     renderChips();
+    syncMenu();
   }
 
-  // פתיחה/סגירה של התפריט
   control.addEventListener('click', function (e) {
     e.stopPropagation();
     ms.classList.toggle('open');
   });
 
-  // בחירה מתוך התפריט
   menu.querySelectorAll('.item').forEach(item => {
     item.addEventListener('click', function (e) {
       e.stopPropagation();
-      const value = item.dataset.value;
-      const isActive = item.classList.contains('active');
-      setSelected(value, !isActive);
+      const v = item.dataset.value;
+      const selected = new Set(getSelectedValues());
+      setSelected(v, !selected.has(v));
     });
   });
 
-  // סגירה בלחיצה בחוץ
   document.addEventListener('click', function (e) {
     if (!ms.contains(e.target)) {
       ms.classList.remove('open');
     }
   });
 
-  // אתחול ראשוני
+  // התחלה
   renderChips();
-  syncMenuActive();
-  updatePlaceholder();
+  syncMenu();
+
+  // להסתיר את ה-select החבוי מהעין
+  hiddenSelect.style.position = 'absolute';
+  hiddenSelect.style.opacity = '0';
+  hiddenSelect.style.pointerEvents = 'none';
+  hiddenSelect.style.height = '0';
+  hiddenSelect.style.margin = '0';
 });
 </script>
 
