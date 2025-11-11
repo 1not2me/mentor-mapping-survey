@@ -4,220 +4,215 @@
   <meta charset="utf-8">
   <title>מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- חשוב: אותו CSS כמו השאלון הראשון -->
+  <!-- להשתמש בקובץ ה-CSS שסיפקת -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="page-wrap">
+<header class="hero">
+  <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</h1>
+  <p class="sub">
+    שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
+    אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
+  </p>
+</header>
 
-  <!-- HEADER -->
-  <header class="hero">
-    <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</h1>
-    <p class="sub">
-      שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
-      אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
-    </p>
-  </header>
+<main class="container">
 
-  <!-- FLASH MESSAGES -->
-  <div class="messages">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, msg in messages %}
-          <div class="msg msg-{{ category }}">{{ msg }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-  </div>
+  <!-- הודעות פלאש -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, msg in messages %}
+        <div class="msg msg-{{ category }}">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
-  <!-- FORM CARD -->
-  <main>
-    <form method="post" class="form-card">
+  <!-- כרטיס טופס -->
+  <form method="post" class="card">
 
-      <!-- פרטים אישיים -->
-      <section class="form-section">
-        <h2>פרטים אישיים</h2>
+    <!-- פרטים אישיים -->
+    <section class="step active">
+      <h2>פרטים אישיים</h2>
 
-        <label class="required">
-          <span class="label-text">שם פרטי</span>
-          <input type="text" name="first_name" required>
-        </label>
+      <label class="required">
+        <span class="label-text">שם פרטי</span>
+        <input type="text" name="first_name" required>
+      </label>
 
-        <label class="required">
-          <span class="label-text">שם משפחה</span>
-          <input type="text" name="last_name" required>
-        </label>
+      <label class="required">
+        <span class="label-text">שם משפחה</span>
+        <input type="text" name="last_name" required>
+      </label>
 
-        <label class="required">
-          <span class="label-text">סטטוס מדריך</span>
-          <select name="mentor_status" required>
-            <option value="">בחר/י מהאפשרויות</option>
-            <option value="מדריך חדש (נדרש קורס)">מדריך חדש (נדרש קורס)</option>
-            <option value="מדריך ותיק">מדריך ותיק</option>
-            <option value="רכז/ת">רכז/ת</option>
-          </select>
-        </label>
-      </section>
-
-      <!-- מוסד ההכשרה -->
-      <section class="form-section">
-        <h2>מוסד ההכשרה</h2>
-
-        <label class="required">
-          <span class="label-text">שם המוסד</span>
-          <input type="text" name="institute" required>
-        </label>
-
-        <label class="required">
-          <span class="label-text">תחום התמחות</span>
-          <select name="specialization" required>
-            <option value="">בחר/י מהרשימה</option>
-            {% for s in specializations %}
-              <option value="{{ s }}">{{ s }}</option>
-            {% endfor %}
-          </select>
-        </label>
-      </section>
-
-      <!-- כתובת המוסד -->
-      <section class="form-section">
-        <h2>כתובת המוסד</h2>
-
-        <label class="required">
-          <span class="label-text">רחוב</span>
-          <input type="text" name="street" required>
-        </label>
-
-        <label class="required">
-          <span class="label-text">עיר</span>
-          <input type="text" name="city" required>
-        </label>
-
-        <label class="required">
-          <span class="label-text">מיקוד</span>
-          <input type="text" name="postal_code" required>
-        </label>
-      </section>
-
-      <!-- קליטת סטודנטים -->
-      <section class="form-section">
-        <h2>קליטת סטודנטים</h2>
-
-        <label class="required">
-          <span class="label-text">מספר סטודנטים שניתן לקלוט (1 או 2)</span>
-          <select name="num_students" required>
-            <option value="">בחר/י</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-          </select>
-        </label>
-      </section>
-
-      <!-- המשכיות הדרכה -->
-      <section class="form-section">
-        <h2>המשכיות הדרכה</h2>
-
-        <div class="required">
-          <span class="label-text">האם יש כוונה להמשך הדרכה לשנה נוספת?</span>
-          <div class="radio-group">
-            <label class="radio-option">
-              <span>כן</span>
-              <input type="radio" name="continue_mentoring" value="כן" required>
-            </label>
-            <label class="radio-option">
-              <span>לא</span>
-              <input type="radio" name="continue_mentoring" value="לא" required>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <!-- בקשות מיוחדות -->
-      <section class="form-section">
-        <h2>בקשות מיוחדות</h2>
-
-        <label>
-          <span class="label-text">בקשות מיוחדות (למשל: הדרכה בערב, שפות, נגישות, אילוצים)</span>
-          <textarea name="special_requests" rows="3"
-                    placeholder="כתוב/י כאן כל בקשה שתרצה שניקח בחשבון בשיבוץ"></textarea>
-        </label>
-      </section>
-
-      <!-- חוות דעת על המדריך - צ'יפים -->
-      <section class="form-section">
-        <h2>חוות דעת על המדריך</h2>
-
-        <div class="required">
-          <span class="label-text">נקודות רלוונטיות (ניתן לבחור כמה אפשרויות)</span>
-
-          <div class="tag-ms" data-ms="mentor_feedback" dir="rtl">
-            <div class="control">
-              <div class="chips" data-ms-chips></div>
-              <div class="placeholder">
-                בחר/י נקודות רלוונטיות (אפשר יותר מאפשרות אחת)
-              </div>
-              <div class="caret">▼</div>
-            </div>
-
-            <div class="menu">
-              <div class="item" data-value="זמינות גבוהה">
-                זמינות גבוהה <span class="check">✓</span>
-              </div>
-              <div class="item" data-value="ליווי מקצועי משמעותי">
-                ליווי מקצועי משמעותי <span class="check">✓</span>
-              </div>
-              <div class="item" data-value="שיתוף פעולה עם המוסד">
-                שיתוף פעולה עם המוסד <span class="check">✓</span>
-              </div>
-              <div class="item" data-value="צורך בחיזוק בליווי">
-                צורך בחיזוק בליווי <span class="check">✓</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- select חבוי שנשלח לשרת -->
-        <select name="mentor_feedback_points" id="mentor_feedback_points" multiple hidden>
-          <option value="זמינות גבוהה"></option>
-          <option value="ליווי מקצועי משמעותי"></option>
-          <option value="שיתוף פעולה עם המוסד"></option>
-          <option value="צורך בחיזוק בליווי"></option>
+      <label class="required">
+        <span class="label-text">סטטוס מדריך</span>
+        <select name="mentor_status" required>
+          <option value="">בחר/י מהאפשרויות</option>
+          <option value="מדריך חדש (נדרש קורס)">מדריך חדש (נדרש קורס)</option>
+          <option value="מדריך ותיק">מדריך ותיק</option>
+          <option value="רכז/ת">רכז/ת</option>
         </select>
+      </label>
+    </section>
 
-        <label>
-          <span class="label-text">כתיבה חופשית (פירוט נוסף)</span>
-          <textarea name="mentor_feedback_text" rows="3"
-                    placeholder="כתוב/י כאן חוות דעת חופשית..."></textarea>
-        </label>
-      </section>
+    <!-- מוסד ההכשרה -->
+    <section class="step active">
+      <h2>מוסד ההכשרה</h2>
 
-      <!-- פרטי התקשרות -->
-      <section class="form-section">
-        <h2>פרטי התקשרות</h2>
+      <label class="required">
+        <span class="label-text">שם המוסד</span>
+        <input type="text" name="institute" required>
+      </label>
 
-        <label class="required">
-          <span class="label-text">מספר טלפון</span>
-          <input type="tel" name="phone" required placeholder="0501234567">
-        </label>
+      <label class="required">
+        <span class="label-text">תחום התמחות</span>
+        <select name="specialization" required>
+          <option value="">בחר/י מהרשימה</option>
+          {% for s in specializations %}
+            <option value="{{ s }}">{{ s }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </section>
 
-        <label class="required">
-          <span class="label-text">כתובת דוא"ל</span>
-          <input type="email" name="email" required placeholder="name@example.com">
-        </label>
-      </section>
+    <!-- כתובת המוסד -->
+    <section class="step active">
+      <h2>כתובת המוסד</h2>
 
-      <!-- כפתור שליחה -->
-      <div class="submit-wrap">
-        <button type="submit">
-          <span>📨</span>
-          שליחת הטופס
-        </button>
-      </div>
+      <label class="required">
+        <span class="label-text">רחוב</span>
+        <input type="text" name="street" required>
+      </label>
 
-    </form>
-  </main>
-</div>
+      <label class="required">
+        <span class="label-text">עיר</span>
+        <input type="text" name="city" required>
+      </label>
+
+      <label class="required">
+        <span class="label-text">מיקוד</span>
+        <input type="text" name="postal_code" required>
+      </label>
+    </section>
+
+    <!-- קליטת סטודנטים -->
+    <section class="step active">
+      <h2>קליטת סטודנטים</h2>
+
+      <label class="required">
+        <span class="label-text">מספר סטודנטים שניתן לקלוט (1 או 2)</span>
+        <select name="num_students" required>
+          <option value="">בחר/י</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </label>
+    </section>
+
+    <!-- המשכיות הדרכה -->
+    <section class="step active">
+      <h2>המשכיות הדרכה</h2>
+
+      <!-- כן/לא באותו סטייל של "מין" בטופס הראשון -->
+      <label class="required">
+        <span class="label-text">האם יש כוונה להמשך הדרכה לשנה נוספת?</span>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="continue_mentoring" value="כן" required>
+            <span>כן</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="continue_mentoring" value="לא" required>
+            <span>לא</span>
+          </label>
+        </div>
+      </label>
+    </section>
+
+    <!-- בקשות מיוחדות -->
+    <section class="step active">
+      <h2>בקשות מיוחדות</h2>
+
+      <label>
+        <span class="label-text">בקשות מיוחדות (למשל: הדרכה בערב, שפות, נגישות, אילוצים)</span>
+        <textarea name="special_requests" rows="3"
+                  placeholder="כתוב/י כאן כל בקשה שתרצה שניקח בחשבון בשיבוץ"></textarea>
+      </label>
+    </section>
+
+    <!-- חוות דעת על המדריך (צ'יפים) -->
+    <section class="step active">
+      <h2>חוות דעת על המדריך</h2>
+
+      <label>
+        <span class="label-text">נקודות רלוונטיות (ניתן לבחור כמה אפשרויות)</span>
+
+        <div class="tag-ms" data-ms="mentor_feedback">
+          <div class="control">
+            <div class="chips" data-ms-chips></div>
+            <div class="placeholder">
+              בחר/י נקודות רלוונטיות (אפשר יותר מאפשרות אחת)
+            </div>
+            <div class="caret">▼</div>
+          </div>
+
+          <div class="menu">
+            <div class="item" data-value="זמינות גבוהה">
+              זמינות גבוהה <span class="check">✓</span>
+            </div>
+            <div class="item" data-value="ליווי מקצועי משמעותי">
+              ליווי מקצועי משמעותי <span class="check">✓</span>
+            </div>
+            <div class="item" data-value="שיתוף פעולה עם המוסד">
+              שיתוף פעולה עם המוסד <span class="check">✓</span>
+            </div>
+            <div class="item" data-value="צורך בחיזוק בליווי">
+              צורך בחיזוק בליווי <span class="check">✓</span>
+            </div>
+          </div>
+        </div>
+      </label>
+
+      <!-- select חבוי שנשלח לשרת -->
+      <select name="mentor_feedback_points" id="mentor_feedback_points" multiple hidden>
+        <option value="זמינות גבוהה"></option>
+        <option value="ליווי מקצועי משמעותי"></option>
+        <option value="שיתוף פעולה עם המוסד"></option>
+        <option value="צורך בחיזוק בליווי"></option>
+      </select>
+
+      <label>
+        <span class="label-text">כתיבה חופשית (פירוט נוסף)</span>
+        <textarea name="mentor_feedback_text" rows="3"
+                  placeholder="כתוב/י כאן חוות דעת חופשית..."></textarea>
+      </label>
+    </section>
+
+    <!-- פרטי התקשרות -->
+    <section class="step active">
+      <h2>פרטי התקשרות</h2>
+
+      <label class="required">
+        <span class="label-text">מספר טלפון</span>
+        <input type="tel" name="phone" required placeholder="0501234567">
+      </label>
+
+      <label class="required">
+        <span class="label-text">כתובת דוא"ל</span>
+        <input type="email" name="email" required placeholder="name@example.com">
+      </label>
+    </section>
+
+    <!-- כפתור שליחה -->
+    <div class="wizard-nav" style="border-top:none; padding-top:12px; justify-content:center;">
+      <button type="submit" class="btn primary">
+        📨 שליחת הטופס
+      </button>
+    </div>
+
+  </form>
+</main>
 
 <!-- סקריפט לצ'יפים -->
 <script>
