@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ודאי שהקובץ תואם לשם ב-static (style.css או styles.css בהתאם למה ששמרת) -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -13,7 +14,7 @@
   <!-- HEADER -->
   <header class="hero">
     <div class="hero-text">
-      <h1>📋מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</h1>
+      <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</h1>
       <p>
         שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
         אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
@@ -40,18 +41,18 @@
       <section class="form-section">
         <h2>פרטים אישיים</h2>
 
-        <label>
-          שם פרטי <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">שם פרטי</span>
           <input type="text" name="first_name" required>
         </label>
 
-        <label>
-          שם משפחה <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">שם משפחה</span>
           <input type="text" name="last_name" required>
         </label>
 
-        <label>
-          סטטוס מדריך <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">סטטוס מדריך</span>
           <select name="mentor_status" required>
             <option value="">בחר/י מהאפשרויות</option>
             <option value="מדריך חדש (נדרש קורס)">מדריך חדש (נדרש קורס)</option>
@@ -65,13 +66,13 @@
       <section class="form-section">
         <h2>מוסד ההכשרה</h2>
 
-        <label>
-          שם המוסד <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">שם המוסד</span>
           <input type="text" name="institute" required>
         </label>
 
-        <label>
-          תחום התמחות <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">תחום התמחות</span>
           <select name="specialization" required>
             <option value="">בחר/י מהרשימה</option>
             {% for s in specializations %}
@@ -85,18 +86,18 @@
       <section class="form-section">
         <h2>כתובת המוסד</h2>
 
-        <label>
-          רחוב <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">רחוב</span>
           <input type="text" name="street" required>
         </label>
 
-        <label>
-          עיר <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">עיר</span>
           <input type="text" name="city" required>
         </label>
 
-        <label>
-          מיקוד <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">מיקוד</span>
           <input type="text" name="postal_code" required>
         </label>
       </section>
@@ -105,9 +106,10 @@
       <section class="form-section">
         <h2>קליטת סטודנטים</h2>
 
-        <label>
-          מספר סטודנטים שניתן לקלוט (1 או 2) <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">מספר סטודנטים שניתן לקלוט (1 או 2)</span>
           <select name="num_students" required>
+            <option value="">בחר/י</option>
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
@@ -117,23 +119,28 @@
       <!-- המשכיות הדרכה -->
       <section class="form-section">
         <h2>המשכיות הדרכה</h2>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="continue_mentoring" value="כן" required>
-            כן
-          </label>
-          <label>
-            <input type="radio" name="continue_mentoring" value="לא" required>
-            לא
-          </label>
-        </div>
+
+        <label class="required">
+          <span class="label-text">האם יש כוונה להמשך הדרכה לשנה נוספת?</span>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="continue_mentoring" value="כן" required>
+              <span>כן</span>
+            </label>
+            <label>
+              <input type="radio" name="continue_mentoring" value="לא" required>
+              <span>לא</span>
+            </label>
+          </div>
+        </label>
       </section>
 
       <!-- בקשות מיוחדות -->
       <section class="form-section">
         <h2>בקשות מיוחדות</h2>
+
         <label>
-          בקשות מיוחדות (למשל: הדרכה בערב, שפות, נגישות, אילוצים)
+          <span class="label-text">בקשות מיוחדות (למשל: הדרכה בערב, שפות, נגישות, אילוצים)</span>
           <textarea name="special_requests" rows="3"
                     placeholder="כתוב/י כאן כל בקשה שתרצה שניקח בחשבון בשיבוץ"></textarea>
         </label>
@@ -143,31 +150,33 @@
       <section class="form-section">
         <h2>חוות דעת על המדריך</h2>
 
-<div class="tag-ms" data-ms="mentor_feedback" dir="rtl">
-  <div class="control">
-    <div class="chips" data-ms-chips></div>
-    <div class="placeholder">
-      בחר/י נקודות רלוונטיות (אפשר יותר מאפשרות אחת)
-    </div>
-    <div class="caret"></div>
-  </div>
+        <label>
+          <span class="label-text">נקודות רלוונטיות (ניתן לבחור כמה)</span>
+          <div class="tag-ms" data-ms="mentor_feedback" dir="rtl">
+            <div class="control">
+              <div class="chips" data-ms-chips></div>
+              <div class="placeholder">
+                בחר/י נקודות רלוונטיות (אפשר יותר מאפשרות אחת)
+              </div>
+              <div class="caret">▼</div>
+            </div>
 
-  <div class="menu">
-    <div class="item" data-value="זמינות גבוהה">
-      זמינות גבוהה <span class="check">✓</span>
-    </div>
-    <div class="item" data-value="ליווי מקצועי משמעותי">
-      ליווי מקצועי משמעותי <span class="check">✓</span>
-    </div>
-    <div class="item" data-value="שיתוף פעולה עם המוסד">
-      שיתוף פעולה עם המוסד <span class="check">✓</span>
-    </div>
-    <div class="item" data-value="צורך בחיזוק בליווי">
-      צורך בחיזוק בליווי <span class="check">✓</span>
-    </div>
-  </div>
-</div>
-
+            <div class="menu">
+              <div class="item" data-value="זמינות גבוהה">
+                זמינות גבוהה <span class="check">✓</span>
+              </div>
+              <div class="item" data-value="ליווי מקצועי משמעותי">
+                ליווי מקצועי משמעותי <span class="check">✓</span>
+              </div>
+              <div class="item" data-value="שיתוף פעולה עם המוסד">
+                שיתוף פעולה עם המוסד <span class="check">✓</span>
+              </div>
+              <div class="item" data-value="צורך בחיזוק בליווי">
+                צורך בחיזוק בליווי <span class="check">✓</span>
+              </div>
+            </div>
+          </div>
+        </label>
 
         <!-- select חבוי שנשלח לשרת -->
         <select name="mentor_feedback_points" id="mentor_feedback_points" multiple hidden>
@@ -178,7 +187,7 @@
         </select>
 
         <label>
-          כתיבה חופשית (פירוט נוסף)
+          <span class="label-text">כתיבה חופשית (פירוט נוסף)</span>
           <textarea name="mentor_feedback_text" rows="3"
                     placeholder="כתוב/י כאן חוות דעת חופשית..."></textarea>
         </label>
@@ -188,13 +197,13 @@
       <section class="form-section">
         <h2>פרטי התקשרות</h2>
 
-        <label>
-          מספר טלפון <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">מספר טלפון</span>
           <input type="tel" name="phone" required placeholder="0501234567">
         </label>
 
-        <label>
-          כתובת דוא"ל <span class="req">*</span>
+        <label class="required">
+          <span class="label-text">כתובת דוא&quot;ל</span>
           <input type="email" name="email" required placeholder="name@example.com">
         </label>
       </section>
@@ -234,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const chip = document.createElement('div');
       chip.className = 'chip';
       chip.dataset.value = opt.value;
-      chip.innerHTML = opt.value + '<button type="button">&times;</button>';
+      chip.innerHTML = `<span>${opt.value}</span><button type="button">&times;</button>`;
       chip.querySelector('button').addEventListener('click', function () {
         setSelected(opt.value, false);
       });
@@ -282,5 +291,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
-
-
