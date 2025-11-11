@@ -323,54 +323,68 @@ select[multiple]::-webkit-scrollbar-thumb {
 }
 
 /* ============= RADIO ============= */
+/* ============= RADIO ============= */
 .radio-group {
-  display:flex;
-  flex-direction:row-reverse;
-  justify-content:flex-start;
-  align-items:center;
-  gap:40px;
-  direction:rtl;
-  text-align:right;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
 }
 
-.radio-group label {
-  display:flex;
-  align-items:center;
-  flex-direction:row-reverse;
-  gap:6px;
-  font-size:16px;
-  color:#0f172a;
-  cursor:pointer;
+.radio-option {
+  display: flex;
+  flex-direction: row-reverse; /* טקסט מימין, עיגול משמאל */
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #0f172a;
 }
 
-.radio-group input[type="radio"] {
-  appearance:none;
-  -webkit-appearance:none;
-  width:20px;
-  height:20px;
-  border:2px solid #cbd5e1;
-  border-radius:50%;
-  background:#fff;
-  position:relative;
-  cursor:pointer;
-  transition:all 0.15s ease;
+/* העיגול */
+.radio-option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  background: #fff;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.radio-group input[type="radio"]:hover {
-  border-color:#b57d8e;
+.radio-option input[type="radio"]:hover {
+  border-color: #b57d8e;
 }
 
-.radio-group input[type="radio"]:checked {
-  border-color:#b57d8e;
-  box-shadow:0 0 0 3px rgba(181,125,142,0.2);
+.radio-option input[type="radio"]:checked {
+  border-color: #b57d8e;
+  box-shadow: 0 0 0 3px rgba(181, 125, 142, 0.2);
 }
 
-.radio-group input[type="radio"]:checked::after {
-  content:"";
-  position:absolute;
-  inset:4px;
-  border-radius:50%;
-  background:#b57d8e;
+.radio-option input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: #b57d8e;
+}
+
+/* כוכבית לכל שאלה עם class="required" */
+.required {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+}
+.required .label-text::after {
+  content: " *";
+  color: #e11d48;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 /* ============= CHECKBOX MULTI ============= */
@@ -608,3 +622,4 @@ button[type="submit"]:active {
   height:0;
   margin:0;
 }
+
