@@ -51,8 +51,9 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
 }
 
-/* ============= WRAP ============= */
-.page-wrap {
+/* ============= WRAP / LAYOUT ============= */
+.page-wrap,
+.container {
   max-width: 860px;
   margin: 0 auto;
   padding: 0 16px 32px;
@@ -76,7 +77,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
 }
 
-/* ============= MESSAGES (FLASH) ============= */
+/* ============= FLASH MESSAGES ============= */
 .messages {
   margin: 10px 0 16px;
 }
@@ -113,7 +114,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 14px;
 }
 
-/* אזורי טופס */
+/* אזורי טופס פנימיים (אופציונלי) */
 .form-section {
   padding-top: 8px;
   padding-bottom: 10px;
@@ -127,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 0;
 }
 
-/* ============= STEPPER (אם קיים) ============= */
+/* ============= STEPPER / WIZARD ============= */
 .stepper-wrap {
   display:flex;
   justify-content:center;
@@ -171,6 +172,7 @@ h1, h2, h3, h4, h5, h6 {
 .stepper li.done { opacity:.9; }
 
 .step { display:none; }
+
 .step.active {
   display:block;
   margin-bottom:24px;
@@ -182,7 +184,21 @@ h1, h2, h3, h4, h5, h6 {
   font-weight:800;
 }
 
-/* ============= LABELS ============= */
+/* ניווט אשף (להבא / הקודם / שליחה) */
+.wizard-nav {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:24px;
+  padding-top:16px;
+  border-top:1px solid #e5e7eb;
+}
+
+.wizard-nav .btn {
+  min-width:120px;
+}
+
+/* ============= LABELS + REQUIRED STAR ============= */
 label {
   display:flex;
   flex-direction:column;
@@ -194,9 +210,26 @@ label {
   width: 100%;
 }
 
-.req {
+/* טקסט כותרת בתוך ה-label */
+.label-text {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+
+/* כוכבית אדומה אוטומטית לכל label עם class="required" */
+label.required .label-text::after {
+  content:" *";
   color:#e11d48;
-  margin-right:3px;
+  font-weight:700;
+  font-size:16px;
+}
+
+/* לתיבות סימון מרובות שיש להן required */
+.multi-check.required .label-text::after {
+  content:" *";
+  color:#e11d48;
+  font-weight:700;
 }
 
 /* ============= GRID ============= */
@@ -230,8 +263,6 @@ textarea {
   outline:none;
   transition:all .2s ease;
   font-family:"David","Assistant","Noto Sans Hebrew",system-ui,sans-serif;
-
-  /* === כיוון ויישור טקסט בתוך השדה === */
   direction: rtl;
   text-align: right;
 }
@@ -252,7 +283,7 @@ textarea:focus {
   transform:translateY(-1px);
 }
 
-/* SELECT רגיל עם חץ */
+/* SELECT עם חץ */
 select:not([multiple]) {
   appearance:none;
   -webkit-appearance:none;
@@ -293,53 +324,53 @@ select[multiple]::-webkit-scrollbar-thumb {
 
 /* ============= RADIO ============= */
 .radio-group {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 40px;
-  direction: rtl;
-  text-align: right;
+  display:flex;
+  flex-direction:row-reverse;
+  justify-content:flex-start;
+  align-items:center;
+  gap:40px;
+  direction:rtl;
+  text-align:right;
 }
 
 .radio-group label {
-  display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-  gap: 6px;
-  font-size: 16px;
-  color: #0f172a;
-  cursor: pointer;
+  display:flex;
+  align-items:center;
+  flex-direction:row-reverse;
+  gap:6px;
+  font-size:16px;
+  color:#0f172a;
+  cursor:pointer;
 }
 
 .radio-group input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #cbd5e1;
-  border-radius: 50%;
-  background: #fff;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  appearance:none;
+  -webkit-appearance:none;
+  width:20px;
+  height:20px;
+  border:2px solid #cbd5e1;
+  border-radius:50%;
+  background:#fff;
+  position:relative;
+  cursor:pointer;
+  transition:all 0.15s ease;
 }
 
 .radio-group input[type="radio"]:hover {
-  border-color: #b57d8e;
+  border-color:#b57d8e;
 }
 
 .radio-group input[type="radio"]:checked {
-  border-color: #b57d8e;
-  box-shadow: 0 0 0 3px rgba(181, 125, 142, 0.2);
+  border-color:#b57d8e;
+  box-shadow:0 0 0 3px rgba(181,125,142,0.2);
 }
 
 .radio-group input[type="radio"]:checked::after {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border-radius: 50%;
-  background: #b57d8e;
+  content:"";
+  position:absolute;
+  inset:4px;
+  border-radius:50%;
+  background:#b57d8e;
 }
 
 /* ============= CHECKBOX MULTI ============= */
@@ -367,45 +398,77 @@ select[multiple]::-webkit-scrollbar-thumb {
   height:16px;
 }
 
-/* ============= SUBMIT BUTTON ============= */
-/* ============= SUBMIT BUTTON ============= */
+.multi-check.active span {
+  font-weight:600;
+}
+
+/* ============= BUTTONS ============= */
+.btn {
+  background:#eef2f7;
+  color:#111827;
+  border:none;
+  padding:10px 24px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+  font-family:"David",inherit;
+  transition:all .2s ease;
+}
+
+.btn.primary {
+  background: linear-gradient(90deg,#f05da8 0%,#a855f7 100%);
+  color:#fff;
+  box-shadow:0 10px 26px rgba(168,85,247,0.35);
+}
+
+.btn.primary:hover:not(:disabled) {
+  filter:brightness(1.08);
+  transform:translateY(-1px);
+  box-shadow:0 14px 32px rgba(168,85,247,0.45);
+}
+
+.btn:disabled {
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+/* כפתור שליחה מרכזי (אם משתמשים בלי אשף) */
 .submit-wrap {
-  display: flex;
-  justify-content: center;
-  padding-top: 18px;
+  display:flex;
+  justify-content:center;
+  padding-top:18px;
 }
 
 button[type="submit"] {
-  padding: 10px 50px;
-  font-size: 16px;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  background: linear-gradient(90deg, #f05da8 0%, #a855f7 100%); /* כמו הכפתור הסגול-ורוד */
-  color: #ffffff;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.35); /* הצללה רכה */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.25s ease;
+  padding:10px 50px;
+  font-size:16px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  background:linear-gradient(90deg,#f05da8 0%,#a855f7 100%);
+  color:#ffffff;
+  font-weight:700;
+  letter-spacing:0.4px;
+  box-shadow:0 10px 30px rgba(168,85,247,0.35);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:all 0.25s ease;
 }
 
 button[type="submit"]:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(168, 85, 247, 0.45);
+  filter:brightness(1.1);
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(168,85,247,0.45);
 }
 
 button[type="submit"]:active {
-  transform: translateY(1px);
-  box-shadow: 0 6px 18px rgba(168, 85, 247, 0.3);
+  transform:translateY(1px);
+  box-shadow:0 6px 18px rgba(168,85,247,0.3);
 }
 
-
-/* ===== MULTI SELECT עם צ'יפים – חוות דעת על המדריך ===== */
+/* ============= TAG MULTISELECT (צ'יפים) ============= */
 .tag-ms {
   position: relative;
   width: 100%;
@@ -534,7 +597,14 @@ button[type="submit"]:active {
   opacity: 1;
 }
 
+/* אם יש select מקורי שמוחלף בצ'יפים */
+#extra_langs,
+#domains,
+#adjustments,
 #mentor_feedback_points {
-  display: none !important;
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+  height:0;
+  margin:0;
 }
-
