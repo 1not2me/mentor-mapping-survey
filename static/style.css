@@ -400,68 +400,112 @@ button[type="submit"]:active {
 }
 
 /* תפריט הבחירה */
+.tag-ms {
+  position: relative;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.tag-ms .control {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#f7f9fc;
+  border:3px solid #d0d7e3;
+  border-radius:14px;
+  padding:10px 14px;
+  cursor:pointer;
+}
+
+.tag-ms .chips {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  flex:1;
+}
+
+.tag-ms .placeholder {
+  color:#9ca3af;
+  font-size:16px;
+}
+
+.tag-ms .chip {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:#ffe5ea;
+  color:#b91c1c;
+  font-size:14px;
+  font-weight:600;
+}
+
+.tag-ms .chip button {
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:14px;
+  line-height:1;
+}
+
+.tag-ms .caret {
+  margin-right:auto;
+  font-size:14px;
+}
+
 .tag-ms .menu {
-  position: absolute;
-  inset-inline: 0;
-  top: calc(100% + 4px);
-  max-height: 220px;
-  overflow-y: auto;
-  background: #fff;
-  border-radius: 14px;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 14px 32px rgba(15,23,42,.14);
-  display: none;
-  z-index: 10;
-  direction: rtl;
+  position:absolute;
+  top:100%;
+  right:0;
+  left:0;
+  margin-top:4px;
+  background:#ffffff;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+  box-shadow:0 14px 32px rgba(15,23,42,.14);
+  max-height:260px;
+  overflow-y:auto;
+  padding:4px 0;
+  z-index:50;
+  display:none;
 }
 
 .tag-ms.open .menu {
-  display: block;
+  display:block;
 }
 
 .tag-ms .item {
-  padding: 10px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  font-size: 15px;
-  border-bottom: 1px solid #f3f4f6;
-  transition: background 0.15s;
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:16px;
+  color:#111827;
+  border-bottom:1px solid #f3f4f6;
 }
 
 .tag-ms .item:last-child {
-  border-bottom: none;
+  border-bottom:none;
 }
 
 .tag-ms .item:hover {
-  background: #f9fafb;
-}
-
-.tag-ms .item.active {
-  background: #fff1f5;
-  color: #b91c1c;
+  background:#f9fafb;
 }
 
 .tag-ms .item .check {
-  color: #22c55e;
-  font-size: 16px;
-  opacity: 0;
+  font-size:16px;
+  color:#22c55e;
 }
 
-.tag-ms .item.active .check {
-  opacity: 1;
-}
-
-/* הסלקט החבוי שנשלח לשרת */
-#mentor_feedback_points {
+/* להסתיר select מקורי של שפות נוספות */
+#extra_langs {
   position:absolute;
   opacity:0;
   pointer-events:none;
   height:0;
   margin:0;
 }
-
 /* ===== הודעת הצלחה ===== */
 .success-message {
   background-color:#ecfdf5;
@@ -491,4 +535,5 @@ input[type="tel"] {
   text-align: right;
   font-family: "David","Assistant","Noto Sans Hebrew","Segoe UI",system-ui,Arial;
 }
+
 
