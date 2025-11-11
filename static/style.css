@@ -335,126 +335,123 @@ button[type="submit"]:active {
 }
 
 /* ===== TAG MULTISELECT – חוות דעת על המדריך ===== */
+/* ===== MULTISELECT עיצוב מעודכן ===== */
 .tag-ms {
   position: relative;
   width: 100%;
   margin-top: 6px;
+  direction: rtl;
+  text-align: right;
 }
 
 .tag-ms .control {
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:8px;
-  background:#f7f9fc;
-  border:3px solid #d0d7e3;
-  border-radius:14px;
-  padding:10px 14px;
-  cursor:pointer;
-  transition:all .18s ease;
-}
-
-.tag-ms .control:hover {
-  border-color:#c4ccda;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: #f8fafc;
+  border: 2px solid #d0d7e3;
+  border-radius: 14px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .tag-ms.open .control,
 .tag-ms .control:focus-within {
-  background:#ffffff;
-  border-color:var(--primary);
-  box-shadow:0 0 10px var(--ring);
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 10px rgba(181,125,142,0.25);
 }
 
 .tag-ms .chips {
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  flex:1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1 1 auto;
 }
 
 .tag-ms .placeholder {
-  font-size:14px;
-  color:#9ca3af;
+  font-size: 15px;
+  color: #9ca3af;
 }
 
 .tag-ms .caret {
-  font-size:14px;
-  color:#b57d8e;
-  margin-right:auto;
+  font-size: 14px;
+  color: var(--primary);
+  margin-right: auto;
 }
 
 .tag-ms .chip {
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  padding:4px 9px;
-  border-radius:999px;
-  background:#ffe5ea;
-  color:#b91c1c;
-  font-size:13px;
-  font-weight:600;
+  background: #fde8ef;
+  color: #b91c1c;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .tag-ms .chip button {
-  border:none;
-  background:transparent;
-  cursor:pointer;
-  font-size:14px;
-  line-height:1;
-  padding:0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: inherit;
 }
 
+/* תפריט הבחירה */
 .tag-ms .menu {
-  position:absolute;
-  inset-inline:0;
-  top:calc(100% + 4px);
-  max-height:220px;
-  overflow-y:auto;
-  background:#ffffff;
-  border-radius:14px;
-  border:1px solid #e5e7eb;
-  box-shadow:0 14px 32px rgba(15,23,42,.14);
-  padding:4px 0;
-  display:none;
-  z-index:40;
-  direction:rtl;
-  text-align:right;
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% + 4px);
+  max-height: 220px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 14px 32px rgba(15,23,42,.14);
+  display: none;
+  z-index: 10;
+  direction: rtl;
 }
 
-.tag-ms.open .menu { display:block; }
+.tag-ms.open .menu {
+  display: block;
+}
 
 .tag-ms .item {
-  padding:8px 14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  font-size:14px;
-  color:#111827;
-  cursor:pointer;
-  transition:background-color .12s ease, color .12s ease;
-  border-bottom:1px solid #f3f4f6;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 15px;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.15s;
 }
 
-.tag-ms .item:last-child { border-bottom:none; }
+.tag-ms .item:last-child {
+  border-bottom: none;
+}
 
-.tag-ms .item:hover { background:#f9fafb; }
-
-.tag-ms .item .check {
-  font-size: 16px;
-  color: #22c55e;
-  opacity: 0;
-  transition: opacity .12s ease;
+.tag-ms .item:hover {
+  background: #f9fafb;
 }
 
 .tag-ms .item.active {
-  background:#fff1f5;
-  color:#b91c1c;
+  background: #fff1f5;
+  color: #b91c1c;
+}
+
+.tag-ms .item .check {
+  color: #22c55e;
+  font-size: 16px;
+  opacity: 0;
 }
 
 .tag-ms .item.active .check {
   opacity: 1;
 }
-
 
 /* הסלקט החבוי שנשלח לשרת */
 #mentor_feedback_points {
@@ -486,5 +483,12 @@ button[type="submit"]:active {
 .success-message .emoji {
   font-size:20px;
   line-height:1;
+}
+
+/* ===== שדה טלפון מימין לשמאל ===== */
+input[type="tel"] {
+  direction: rtl;
+  text-align: right;
+  font-family: "David","Assistant","Noto Sans Hebrew","Segoe UI",system-ui,Arial;
 }
 
