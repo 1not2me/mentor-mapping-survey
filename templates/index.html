@@ -2,9 +2,9 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <title>מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</title>
+  <title>מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- ודאי שהקובץ תואם לשם ב-static (style.css או styles.css בהתאם למה ששמרת) -->
+  <!-- חשוב: אותו CSS כמו השאלון הראשון -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -13,13 +13,11 @@
 
   <!-- HEADER -->
   <header class="hero">
-    <div class="hero-text">
-      <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</h1>
-      <p>
-        שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
-        אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
-      </p>
-    </div>
+    <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</h1>
+    <p class="sub">
+      שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
+      אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
+    </p>
   </header>
 
   <!-- FLASH MESSAGES -->
@@ -117,24 +115,23 @@
       </section>
 
       <!-- המשכיות הדרכה -->
-     <section class="form-section">
-  <h2>המשכיות הדרכה</h2>
+      <section class="form-section">
+        <h2>המשכיות הדרכה</h2>
 
-  <div class="required">
-    <span class="label-text">האם יש כוונה להמשך הדרכה לשנה נוספת?</span>
-    <div class="radio-group">
-      <label class="radio-option">
-        <span>כן</span>
-        <input type="radio" name="continue_mentoring" value="כן" required>
-      </label>
-      <label class="radio-option">
-        <span>לא</span>
-        <input type="radio" name="continue_mentoring" value="לא" required>
-      </label>
-    </div>
-  </div>
-</section>
-
+        <div class="required">
+          <span class="label-text">האם יש כוונה להמשך הדרכה לשנה נוספת?</span>
+          <div class="radio-group">
+            <label class="radio-option">
+              <span>כן</span>
+              <input type="radio" name="continue_mentoring" value="כן" required>
+            </label>
+            <label class="radio-option">
+              <span>לא</span>
+              <input type="radio" name="continue_mentoring" value="לא" required>
+            </label>
+          </div>
+        </div>
+      </section>
 
       <!-- בקשות מיוחדות -->
       <section class="form-section">
@@ -147,12 +144,13 @@
         </label>
       </section>
 
-      <!-- חוות דעת על המדריך - רשימה נפתחת עם צ'יפים -->
+      <!-- חוות דעת על המדריך - צ'יפים -->
       <section class="form-section">
         <h2>חוות דעת על המדריך</h2>
 
-        <label>
-          <span class="label-text">נקודות רלוונטיות (ניתן לבחור כמה)</span>
+        <div class="required">
+          <span class="label-text">נקודות רלוונטיות (ניתן לבחור כמה אפשרויות)</span>
+
           <div class="tag-ms" data-ms="mentor_feedback" dir="rtl">
             <div class="control">
               <div class="chips" data-ms-chips></div>
@@ -177,7 +175,7 @@
               </div>
             </div>
           </div>
-        </label>
+        </div>
 
         <!-- select חבוי שנשלח לשרת -->
         <select name="mentor_feedback_points" id="mentor_feedback_points" multiple hidden>
@@ -204,7 +202,7 @@
         </label>
 
         <label class="required">
-          <span class="label-text">כתובת דוא&quot;ל</span>
+          <span class="label-text">כתובת דוא"ל</span>
           <input type="email" name="email" required placeholder="name@example.com">
         </label>
       </section>
@@ -221,7 +219,7 @@
   </main>
 </div>
 
-<!-- סקריפט לרשימה הנפתחת עם צ'יפים -->
+<!-- סקריפט לצ'יפים -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const ms = document.querySelector('[data-ms="mentor_feedback"]');
@@ -292,4 +290,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
-
