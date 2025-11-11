@@ -43,6 +43,10 @@ body {
   box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color:#000 !important;
+}
+
 /* ===== HEADER ===== */
 .hero {
   padding: 22px 16px 6px;
@@ -53,7 +57,6 @@ body {
   margin: 0;
   font-size: 44px;
   font-weight: 900;
-  color: #000 !important;
 }
 
 .hero .sub {
@@ -78,186 +81,130 @@ body {
   overflow: visible;
 }
 
-/* ===== STEPPER ===== */
-.stepper-wrap {
-  display: flex;
-  justify-content: center;
+/* ===== הודעות ===== */
+.messages { margin:10px 0 16px; }
+
+.msg {
+  padding:10px 16px;
+  border-radius:999px;
+  font-size:14px;
+  margin-bottom:6px;
+  background:#fdf2ff;
+  color:#4b5563;
+  box-shadow:0 4px 12px rgba(181,125,142,.18);
 }
 
-.stepper {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 16px;
-  display: flex;
-  gap: 8px;
-  overflow: auto;
-  max-width: 860px;
-}
-
-.stepper::-webkit-scrollbar {
-  height: 6px;
-}
-.stepper::-webkit-scrollbar-thumb {
-  background: #e5e7eb;
-  border-radius: 8px;
-}
-
-.stepper li {
-  font-weight: 800;
-  font-size: 16px;
-  color: #374151;
-  background: #f9fafb;
-  border: 2px solid #e5e7eb;
-  padding: 12px 22px;
-  border-radius: 9999px;
-  white-space: nowrap;
-  transition: all .2s ease;
-}
-
-.stepper li.active {
-  background: var(--grad-main);
-  border-color: transparent;
-  color: #fff;
-  box-shadow: 0 6px 14px rgba(168,85,247,0.35);
-  transform: scale(1.06);
-}
-
-.stepper li.done {
-  opacity: .9;
-}
-
-/* ===== TITLES & STEPS ===== */
-.step h2 {
-  margin: 18px 0 14px;
-  font-size: 32px;
-  font-weight: 800;
-  color: #000 !important;
-}
-
-.step {
-  display: none;
-}
-
-.step.active {
-  display: block;
-  margin-bottom: 24px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #000 !important;
-}
+.msg-success { background:#dcfce7; color:#166534; }
+.msg-error   { background:#fee2e2; color:#991b1b; }
 
 /* ===== LABELS ===== */
 label {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  font-size: 16px;
-  color: #111827;
-  margin-top: 10px;
-  margin-bottom: 4px;
-  width: 100%;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  font-size:16px;
+  color:#111827;
+  margin-top:10px;
+  margin-bottom:4px;
+  width:100%;
 }
 
-/* טקסט של כותרת בתוך הלייבל */
+/* טקסט כותרת בתוך הלייבל */
 .label-text {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
 }
 
-/* כוכבית אדומה לכל שדה חובה (label.required) */
+/* כוכבית אדומה לשדות חובה */
 label.required .label-text::after {
-  content: " *";
-  color: #e11d48;
-  font-weight: 700;
-  font-size: 18px;
+  content:" *";
+  color:#e11d48;
+  font-weight:700;
+  font-size:18px;
 }
 
-/* ===== GRID ===== */
+/* ===== GRID (אם תצטרך) ===== */
 .grid {
-  display: grid;
-  grid-template-columns: minmax(0,1fr);
-  gap: 18px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:18px;
 }
 
 .grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 18px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
 }
 
 @media(max-width:920px){
   .grid-2 { grid-template-columns:1fr; }
 }
 
-/* ===== שדות טקסט / טקסט־אריאה / סלקט (BASE) ===== */
+/* ===== INPUTS / SELECT / TEXTAREA ===== */
 input,
 select,
 textarea {
-  width: 100%;
-  background: #ffffff;
-  border: 2px solid var(--field-border);
-  border-radius: 14px;
-  padding: 16px 18px;
-  font-size: 18px;
-  color: #111827;
-  outline: none;
-  transition: all 0.25s ease;
-  font-family: "David","Assistant","Noto Sans Hebrew",system-ui,sans-serif;
-  box-shadow: none;
+  width:100%;
+  background:#ffffff;
+  border:2px solid var(--field-border);
+  border-radius:14px;
+  padding:16px 18px;
+  font-size:18px;
+  color:#111827;
+  outline:none;
+  transition:all 0.25s ease;
+  font-family:"David","Assistant","Noto Sans Hebrew",system-ui,sans-serif;
+  box-shadow:none;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #9ca3af;
+  color:#9ca3af;
 }
 
-/* Hover – מסגרת גרדיאנט */
 input:hover,
 select:hover,
 textarea:hover {
-  border-color: transparent;
+  border-color:transparent;
   background-image:
     linear-gradient(#ffffff,#ffffff),
     var(--grad-main);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 0 0 10px rgba(210,106,194,0.25);
+  background-origin:border-box;
+  background-clip:padding-box,border-box;
+  box-shadow:0 0 10px rgba(210,106,194,0.25);
 }
 
-/* Focus – מסגרת גרדיאנט + הילה */
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: transparent;
+  border-color:transparent;
   background-image:
     linear-gradient(#ffffff,#ffffff),
     var(--grad-main);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 0 0 14px rgba(210,106,194,0.45);
-  transform: translateY(-1px);
+  background-origin:border-box;
+  background-clip:padding-box,border-box;
+  box-shadow:0 0 14px rgba(210,106,194,0.45);
+  transform:translateY(-1px);
 }
 
-/* ===== SELECT רגיל עם חץ מותאם ===== */
+/* SELECT עם חץ */
 select:not([multiple]) {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
-  padding-right: 18px;
-  padding-left: 48px;
-  background-repeat: no-repeat;
-  background-position: left 16px center;
-  background-size: 18px;
-  background-image: url("data:image/svg+xml;utf8,\
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  cursor:pointer;
+  padding-right:18px;
+  padding-left:48px;
+  background-repeat:no-repeat;
+  background-position:left 16px center;
+  background-size:18px;
+  background-image:url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>\
 <path fill='%23b57d8e' d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z'/>\
 </svg>");
 }
 
-/* לשמור את החץ גם ב-hover/focus */
 select:not([multiple]):hover,
 select:not([multiple]):focus {
   background-image:
@@ -267,166 +214,69 @@ select:not([multiple]):focus {
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>\
 <path fill='%23ffffff' d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z'/>\
 </svg>");
-  background-repeat: no-repeat,no-repeat,no-repeat;
+  background-repeat:no-repeat,no-repeat,no-repeat;
   background-position:
     right 0 top 0,
     right 0 top 0,
     left 16px center;
-  background-size: auto,auto,18px;
-}
-
-/* אופציות ברשימה */
-select option {
-  background: #ffffff;
-  color: #111827;
-  font-size: 17px;
-  padding: 10px;
-}
-
-/* דגש לאופציה מסומנת (איפה שנתמך) */
-select option:checked {
-  background: #f8e8ff;
-  color: #7e22ce;
-}
-
-/* ===== SELECT multiple ===== */
-select[multiple] {
-  min-height: 180px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  overflow: auto;
-  background: #ffffff;
-  border: 2px solid #d0d7e3;
-}
-
-select[multiple]::-webkit-scrollbar {
-  width: 8px;
-}
-select[multiple]::-webkit-scrollbar-thumb {
-  background: #d7dee7;
-  border-radius: 8px;
-}
-select[multiple] option {
-  padding: 8px 10px;
-  font-size: 16px;
+  background-size:auto,auto,18px;
 }
 
 /* ===== רדיו ===== */
 .radio-group {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: nowrap;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:40px;
 }
 
 .radio-option {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  user-select: none;
-  color: #111827;
-  margin: 0;
+  display:inline-flex;
+  flex-direction:row;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  user-select:none;
+  color:#111827;
+  margin:0;
 }
 
 .radio-option input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 24px;
-  height: 24px;
-  border: 2px solid #cbd5e1;
-  border-radius: 50%;
-  background: #fff;
-  position: relative;
-  cursor: pointer;
-  transition: all .15s ease;
+  appearance:none;
+  -webkit-appearance:none;
+  width:24px;
+  height:24px;
+  border:2px solid #cbd5e1;
+  border-radius:50%;
+  background:#fff;
+  position:relative;
+  cursor:pointer;
+  transition:all .15s ease;
 }
 
 .radio-option input[type="radio"]:hover {
-  border-color: #e11d48;
+  border-color:#e11d48;
 }
 
 .radio-option input[type="radio"]:checked {
-  border-color: #e11d48;
-  box-shadow: 0 0 0 4px rgba(225,29,72,0.18);
+  border-color:#e11d48;
+  box-shadow:0 0 0 4px rgba(225,29,72,0.18);
 }
 
 .radio-option input[type="radio"]:checked::after {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border-radius: 50%;
-  background: #e11d48;
+  content:"";
+  position:absolute;
+  inset:6px;
+  border-radius:50%;
+  background:#e11d48;
 }
 
-/* ===== כפתורים ===== */
-.btn {
-  background: #eef2f7;
-  color: #111827;
-  border: none;
-  padding: 14px 32px;
-  border-radius: 26px;
-  cursor: pointer;
-  font-weight: 800;
-  font-family: "David",inherit;
-  transition: all .2s ease;
-}
-
-.btn.primary {
-  background: var(--grad-main);
-  color: #fff;
-  box-shadow: 0 10px 26px rgba(168,85,247,0.35);
-  border-radius: 30px;
-}
-
-.btn.primary:hover:not(:disabled) {
-  background: linear-gradient(90deg,#e14e9a 0%,#9333ea 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 14px 32px rgba(147,51,234,0.45);
-}
-
-.btn:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-}
-
-/* ===== טקסט עזר ===== */
-.muted {
-  color:#6b7280;
-  font-size:14px;
-}
-
-/* ===== ניווט אשף ===== */
-.wizard-nav {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:24px;
-  padding-top:16px;
-  border-top:1px solid #e5e7eb;
-}
-
-.wizard-nav .btn {
-  min-width:120px;
-}
-
-.wizard-nav .btn.ghost {
-  order:1;
-}
-
-.wizard-nav .btn.primary {
-  order:2;
-  margin-right:auto;
-}
-
-/* ===== CHECKBOXES (סעיף 6) ===== */
+/* ===== CHECKBOX MULTI בסיסי ===== */
 .multi-check-group {
-  margin-top:16px;
+  margin-top:10px;
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:8px;
 }
 
 .multi-check {
@@ -435,22 +285,56 @@ select[multiple] option {
   align-items:center;
   gap:8px;
   cursor:pointer;
-  font-size:16px;
+  font-size:15px;
   color:#111827;
   width:100%;
 }
 
 .multi-check input[type="checkbox"] {
   margin:0;
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
 }
 
-.multi-check.active span {
-  font-weight:600;
+.multi-check.active span { font-weight:600; }
+
+/* ===== כפתורי שליחה ===== */
+.submit-wrap {
+  display:flex;
+  justify-content:center;
+  padding-top:18px;
 }
 
-/* ===== TAG MULTISELECT ===== */
+button[type="submit"] {
+  padding:10px 50px;
+  font-size:16px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  background:linear-gradient(90deg,#f05da8 0%,#a855f7 100%);
+  color:#ffffff;
+  font-weight:700;
+  letter-spacing:0.4px;
+  box-shadow:0 10px 30px rgba(168,85,247,0.35);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:all 0.25s ease;
+}
+
+button[type="submit"]:hover {
+  filter:brightness(1.1);
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(168,85,247,0.45);
+}
+
+button[type="submit"]:active {
+  transform:translateY(1px);
+  box-shadow:0 6px 18px rgba(168,85,247,0.3);
+}
+
+/* ===== TAG MULTISELECT – חוות דעת על המדריך ===== */
 .tag-ms {
   position: relative;
   width: 100%;
@@ -460,35 +344,54 @@ select[multiple] option {
 .tag-ms .control {
   display:flex;
   align-items:center;
+  flex-wrap:wrap;
   gap:8px;
   background:#f7f9fc;
   border:3px solid #d0d7e3;
   border-radius:14px;
   padding:10px 14px;
   cursor:pointer;
+  transition:all .18s ease;
+}
+
+.tag-ms .control:hover {
+  border-color:#c4ccda;
+}
+
+.tag-ms.open .control,
+.tag-ms .control:focus-within {
+  background:#ffffff;
+  border-color:var(--primary);
+  box-shadow:0 0 10px var(--ring);
 }
 
 .tag-ms .chips {
   display:flex;
   flex-wrap:wrap;
-  gap:4px;
-  flex:1;
+  gap:6px;
+  flex:1 1 auto;
 }
 
 .tag-ms .placeholder {
+  font-size:14px;
   color:#9ca3af;
-  font-size:16px;
+}
+
+.tag-ms .caret {
+  font-size:14px;
+  color:#b57d8e;
+  margin-right:auto;
 }
 
 .tag-ms .chip {
   display:inline-flex;
   align-items:center;
-  gap:6px;
-  padding:4px 10px;
+  gap:4px;
+  padding:4px 9px;
   border-radius:999px;
   background:#ffe5ea;
   color:#b91c1c;
-  font-size:14px;
+  font-size:13px;
   font-weight:600;
 }
 
@@ -498,59 +401,58 @@ select[multiple] option {
   cursor:pointer;
   font-size:14px;
   line-height:1;
-}
-
-.tag-ms .caret {
-  margin-right:auto;
-  font-size:14px;
+  padding:0;
 }
 
 .tag-ms .menu {
   position:absolute;
-  top:100%;
-  right:0;
-  left:0;
-  margin-top:4px;
+  inset-inline:0;
+  top:calc(100% + 4px);
+  max-height:220px;
+  overflow-y:auto;
   background:#ffffff;
   border-radius:14px;
   border:1px solid #e5e7eb;
   box-shadow:0 14px 32px rgba(15,23,42,.14);
-  max-height:260px;
-  overflow-y:auto;
   padding:4px 0;
-  z-index:50;
   display:none;
+  z-index:40;
+  direction:rtl;
+  text-align:right;
 }
 
-.tag-ms.open .menu {
-  display:block;
-}
+.tag-ms.open .menu { display:block; }
 
 .tag-ms .item {
-  padding:10px 16px;
+  padding:8px 14px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  font-size:16px;
+  font-size:14px;
   color:#111827;
+  cursor:pointer;
+  transition:background-color .12s ease, color .12s ease;
   border-bottom:1px solid #f3f4f6;
 }
 
-.tag-ms .item:last-child {
-  border-bottom:none;
-}
+.tag-ms .item:last-child { border-bottom:none; }
 
-.tag-ms .item:hover {
-  background:#f9fafb;
-}
+.tag-ms .item:hover { background:#f9fafb; }
 
+/* ה-✓ מופיע רק כשהפריט פעיל */
 .tag-ms .item .check {
-  font-size:16px;
+  font-size:14px;
   color:#22c55e;
+  opacity:0;
+  transition:opacity .12s ease;
 }
 
-/* להסתיר select מקורי של שפות נוספות */
-#extra_langs {
+.tag-ms .item.active .check {
+  opacity:1;
+}
+
+/* הסלקט החבוי שנשלח לשרת */
+#mentor_feedback_points {
   position:absolute;
   opacity:0;
   pointer-events:none;
