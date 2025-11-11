@@ -22,6 +22,8 @@
   --chip-border:#e9d5ff;
   --chip-active:var(--primary);
   --chip-active-text:#ffffff;
+
+  --grad-main:linear-gradient(90deg,#f05da8 0%,#a855f7 100%);
 }
 
 /* ============= GLOBAL ============= */
@@ -114,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 14px;
 }
 
-/* אזורי טופס פנימיים (אופציונלי) */
+/* אזורי טופס פנימיים */
 .form-section {
   padding-top: 8px;
   padding-bottom: 10px;
@@ -184,7 +186,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight:800;
 }
 
-/* ניווט אשף (להבא / הקודם / שליחה) */
+/* ניווט אשף */
 .wizard-nav {
   display:flex;
   justify-content:space-between;
@@ -205,31 +207,30 @@ label {
   gap:4px;
   font-size:15px;
   color:#111827;
-  margin-top: 12px;
-  margin-bottom: 4px;
-  width: 100%;
+  margin-top:12px;
+  margin-bottom:4px;
+  width:100%;
 }
 
-/* טקסט כותרת בתוך ה-label */
 .label-text {
   display:inline-flex;
   align-items:center;
   gap:4px;
 }
 
-/* כוכבית אדומה אוטומטית לכל label עם class="required" */
-label.required .label-text::after {
+/* עטיפה לשאלות חובה (אפשר על label או div) */
+.required {
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin-top:12px;
+}
+
+.required .label-text::after {
   content:" *";
   color:#e11d48;
   font-weight:700;
   font-size:16px;
-}
-
-/* לתיבות סימון מרובות שיש להן required */
-.multi-check.required .label-text::after {
-  content:" *";
-  color:#e11d48;
-  font-weight:700;
 }
 
 /* ============= GRID ============= */
@@ -250,54 +251,79 @@ label.required .label-text::after {
 }
 
 /* ============= INPUTS / SELECT / TEXTAREA ============= */
-input,
+/* כל השדות הרגילים – מסגרת גרדיאנט כמו בדוגמה */
+input:not([type="radio"]):not([type="checkbox"]),
 select,
 textarea {
   width:100%;
-  background:#f7f9fc;
-  border:2px solid #d0d7e3;
-  border-radius:12px;
-  padding:10px 14px;
-  font-size:16px;
-  color:#111827;
-  outline:none;
-  transition:all .2s ease;
+  padding:16px 20px;
+  font-size:18px;
   font-family:"David","Assistant","Noto Sans Hebrew",system-ui,sans-serif;
-  direction: rtl;
-  text-align: right;
+  color:#111827;
+
+  border-radius:30px;
+  border:2px solid transparent;
+  background-color:transparent;
+
+  background-image:
+    linear-gradient(#ffffff,#ffffff),
+    var(--grad-main);
+  background-origin:border-box;
+  background-clip:padding-box,border-box;
+
+  box-shadow:0 6px 16px rgba(240,93,168,0.15);
+  outline:none;
+  transition:all 0.22s ease;
+  direction:rtl;
+  text-align:right;
+  box-sizing:border-box;
 }
 
 input::placeholder,
 textarea::placeholder {
   color:#9ca3af;
-  direction: rtl;
-  text-align: right;
+  direction:rtl;
+  text-align:right;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  background:#ffffff;
-  border-color:var(--field-focus);
-  box-shadow:0 0 10px var(--ring);
+/* hover + focus מחזקים זוהר */
+input:not([type="radio"]):not([type="checkbox"]):hover,
+select:hover,
+textarea:hover {
+  box-shadow:0 8px 20px rgba(240,93,168,0.22);
   transform:translateY(-1px);
 }
 
-/* SELECT עם חץ */
+input:not([type="radio"]):not([type="checkbox"]):focus,
+select:focus,
+textarea:focus {
+  box-shadow:0 10px 26px rgba(240,93,168,0.32);
+  transform:translateY(-2px);
+}
+
+/* SELECT יחיד עם חץ מותאם – שומר את הגרדיאנט + מוסיף אייקון */
 select:not([multiple]) {
   appearance:none;
   -webkit-appearance:none;
   -moz-appearance:none;
   cursor:pointer;
-  padding-right:14px;
-  padding-left:40px;
-  background-image:url("data:image/svg+xml;utf8,\
+
+  padding-right:18px;
+  padding-left:48px;
+
+  background-image:
+    linear-gradient(#ffffff,#ffffff),
+    var(--grad-main),
+    url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>\
 <path fill='%23b57d8e' d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z'/>\
 </svg>");
-  background-repeat:no-repeat;
-  background-position:left 12px center;
-  background-size:16px;
+  background-repeat:no-repeat,no-repeat,no-repeat;
+  background-position:
+    right 0 top 0,
+    right 0 top 0,
+    left 16px center;
+  background-size:auto,auto,18px;
 }
 
 select option {
@@ -306,85 +332,62 @@ select option {
   font-size:15px;
 }
 
-/* SELECT multiple */
+/* SELECT multiple – עדיין יפה, אבל מותאם לריבוי שורות */
 select[multiple] {
   min-height:180px;
-  padding:8px 10px;
-  border-radius:14px;
+  padding:12px 14px;
+  border-radius:24px;
   overflow:auto;
-  background:#ffffff;
-  border:2px solid #d0d7e3;
 }
 
-select[multiple]::-webkit-scrollbar { width:8px; }
-select[multiple]::-webkit-scrollbar-thumb {
-  background:#d7dee7;
-  border-radius:8px;
-}
-
-/* ============= RADIO ============= */
 /* ============= RADIO ============= */
 .radio-group {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 40px;
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+  gap:40px;
 }
 
 .radio-option {
-  display: flex;
-  flex-direction: row-reverse; /* טקסט מימין, עיגול משמאל */
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  color: #0f172a;
+  display:flex;
+  flex-direction:row-reverse; /* טקסט מימין, עיגול משמאל */
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  font-size:16px;
+  color:#0f172a;
 }
 
 /* העיגול */
 .radio-option input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 24px;
-  height: 24px;
-  border: 2px solid #cbd5e1;
-  border-radius: 50%;
-  background: #fff;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  appearance:none;
+  -webkit-appearance:none;
+  width:24px;
+  height:24px;
+  border:2px solid #cbd5e1;
+  border-radius:50%;
+  background:#fff;
+  position:relative;
+  cursor:pointer;
+  transition:all 0.15s ease;
 }
 
 .radio-option input[type="radio"]:hover {
-  border-color: #b57d8e;
+  border-color:#b57d8e;
 }
 
 .radio-option input[type="radio"]:checked {
-  border-color: #b57d8e;
-  box-shadow: 0 0 0 3px rgba(181, 125, 142, 0.2);
+  border-color:#b57d8e;
+  box-shadow:0 0 0 3px rgba(181,125,142,0.2);
 }
 
 .radio-option input[type="radio"]:checked::after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border-radius: 50%;
-  background: #b57d8e;
-}
-
-/* כוכבית לכל שאלה עם class="required" */
-.required {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 12px;
-}
-.required .label-text::after {
-  content: " *";
-  color: #e11d48;
-  font-weight: 700;
-  font-size: 16px;
+  content:"";
+  position:absolute;
+  inset:5px;
+  border-radius:50%;
+  background:#b57d8e;
 }
 
 /* ============= CHECKBOX MULTI ============= */
@@ -430,7 +433,7 @@ select[multiple]::-webkit-scrollbar-thumb {
 }
 
 .btn.primary {
-  background: linear-gradient(90deg,#f05da8 0%,#a855f7 100%);
+  background:var(--grad-main);
   color:#fff;
   box-shadow:0 10px 26px rgba(168,85,247,0.35);
 }
@@ -446,7 +449,7 @@ select[multiple]::-webkit-scrollbar-thumb {
   cursor:not-allowed;
 }
 
-/* כפתור שליחה מרכזי (אם משתמשים בלי אשף) */
+/* כפתור שליחה מרכזי */
 .submit-wrap {
   display:flex;
   justify-content:center;
@@ -459,7 +462,7 @@ button[type="submit"] {
   border:none;
   border-radius:999px;
   cursor:pointer;
-  background:linear-gradient(90deg,#f05da8 0%,#a855f7 100%);
+  background:var(--grad-main);
   color:#ffffff;
   font-weight:700;
   letter-spacing:0.4px;
@@ -611,7 +614,7 @@ button[type="submit"]:active {
   opacity: 1;
 }
 
-/* אם יש select מקורי שמוחלף בצ'יפים */
+/* select מקורי שמוחלף בצ'יפים */
 #extra_langs,
 #domains,
 #adjustments,
@@ -622,4 +625,3 @@ button[type="submit"]:active {
   height:0;
   margin:0;
 }
-
