@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- להשתמש בקובץ ה-CSS שסיפקת -->
+  <!-- משתמשים ב-style.css שצירפת -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -114,7 +114,6 @@
     <section class="step active">
       <h2>המשכיות הדרכה</h2>
 
-      <!-- כן/לא באותו סטייל של "מין" בטופס הראשון -->
       <label class="required">
         <span class="label-text">האם יש כוונה להמשך הדרכה לשנה נוספת?</span>
         <div class="radio-group">
@@ -141,12 +140,12 @@
       </label>
     </section>
 
-    <!-- חוות דעת על המדריך (צ'יפים) -->
+    <!-- חוות דעת על המדריך - MULTI SELECT עם צ'יפים -->
     <section class="step active">
       <h2>חוות דעת על המדריך</h2>
 
       <label>
-        <span class="label-text">נקודות רלוונטיות (ניתן לבחור כמה אפשרויות)</span>
+        <span class="label-text">בחר/י נקודות רלוונטיות (ניתן לבחור יותר מאפשרות אחת)</span>
 
         <div class="tag-ms" data-ms="mentor_feedback">
           <div class="control">
@@ -159,27 +158,27 @@
 
           <div class="menu">
             <div class="item" data-value="זמינות גבוהה">
-              זמינות גבוהה <span class="check">✓</span>
+              <span>זמינות גבוהה</span><span class="check">✓</span>
             </div>
             <div class="item" data-value="ליווי מקצועי משמעותי">
-              ליווי מקצועי משמעותי <span class="check">✓</span>
+              <span>ליווי מקצועי משמעותי</span><span class="check">✓</span>
             </div>
             <div class="item" data-value="שיתוף פעולה עם המוסד">
-              שיתוף פעולה עם המוסד <span class="check">✓</span>
+              <span>שיתוף פעולה עם המוסד</span><span class="check">✓</span>
             </div>
             <div class="item" data-value="צורך בחיזוק בליווי">
-              צורך בחיזוק בליווי <span class="check">✓</span>
+              <span>צורך בחיזוק בליווי</span><span class="check">✓</span>
             </div>
           </div>
         </div>
       </label>
 
       <!-- select חבוי שנשלח לשרת -->
-      <select name="mentor_feedback_points" id="mentor_feedback_points" multiple hidden>
-        <option value="זמינות גבוהה"></option>
-        <option value="ליווי מקצועי משמעותי"></option>
-        <option value="שיתוף פעולה עם המוסד"></option>
-        <option value="צורך בחיזוק בליווי"></option>
+      <select name="mentor_feedback_points" id="mentor_feedback_points" multiple>
+        <option value="זמינות גבוהה">זמינות גבוהה</option>
+        <option value="ליווי מקצועי משמעותי">ליווי מקצועי משמעותי</option>
+        <option value="שיתוף פעולה עם המוסד">שיתוף פעולה עם המוסד</option>
+        <option value="צורך בחיזוק בליווי">צורך בחיזוק בליווי</option>
       </select>
 
       <label>
@@ -214,7 +213,7 @@
   </form>
 </main>
 
-<!-- סקריפט לצ'יפים -->
+<!-- JS לצ'יפים של חוות דעת (מותאם ל-CSS שלך) -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const ms = document.querySelector('[data-ms="mentor_feedback"]');
@@ -226,60 +225,88 @@ document.addEventListener('DOMContentLoaded', function () {
   const placeholder = ms.querySelector('.placeholder');
   const hiddenSelect = document.getElementById('mentor_feedback_points');
 
+  // להסתיר את ה-select בעזרת ה-CSS הקיים (ולא עם hidden שמפריע לפעמים)
+  hiddenSelect.style.position = 'absolute';
+  hiddenSelect.style.opacity = '0';
+  hiddenSelect.style.pointerEvents = 'none';
+  hiddenSelect.style.height = '0';
+  hiddenSelect.style.margin = '0';
+
+  function getSelectedValues() {
+    return Array.from(hiddenSelect.options)
+      .filter(o => o.selected)
+      .map(o => o.value);
+  }
+
   function updatePlaceholder() {
-    const hasSelected = hiddenSelect && hiddenSelect.selectedOptions.length > 0;
+    const hasSelected = getSelectedValues().length > 0;
     placeholder.style.display = hasSelected ? 'none' : 'block';
   }
 
   function renderChips() {
     chipsBox.innerHTML = '';
-    Array.from(hiddenSelect.selectedOptions).forEach(opt => {
+    const values = getSelectedValues();
+    if (!values.length) {
+      updatePlaceholder();
+      return;
+    }
+
+    values.forEach(value => {
       const chip = document.createElement('div');
       chip.className = 'chip';
-      chip.dataset.value = opt.value;
-      chip.innerHTML = `<span>${opt.value}</span><button type="button">&times;</button>`;
+      chip.dataset.value = value;
+      chip.innerHTML = `<span>${value}</span><button type="button">&times;</button>`;
       chip.querySelector('button').addEventListener('click', function () {
-        setSelected(opt.value, false);
+        setSelected(value, false);
       });
       chipsBox.appendChild(chip);
     });
+
     updatePlaceholder();
   }
 
-  function setSelected(value, on) {
-    const option = Array.from(hiddenSelect.options).find(o => o.value === value);
-    if (!option) return;
-    option.selected = on;
-
+  function syncMenuActive() {
+    const selected = new Set(getSelectedValues());
     menu.querySelectorAll('.item').forEach(item => {
-      if (item.dataset.value === value) {
-        item.classList.toggle('active', on);
-      }
+      item.classList.toggle('active', selected.has(item.dataset.value));
     });
+  }
 
+  function setSelected(value, on) {
+    const opt = Array.from(hiddenSelect.options).find(o => o.value === value);
+    if (!opt) return;
+    opt.selected = !!on;
+    syncMenuActive();
     renderChips();
   }
 
-  control.addEventListener('click', function () {
+  // פתיחה/סגירה של התפריט
+  control.addEventListener('click', function (e) {
+    e.stopPropagation();
     ms.classList.toggle('open');
   });
 
+  // בחירה מתוך התפריט
   menu.querySelectorAll('.item').forEach(item => {
-    item.addEventListener('click', function () {
+    item.addEventListener('click', function (e) {
+      e.stopPropagation();
       const value = item.dataset.value;
-      const option = Array.from(hiddenSelect.options).find(o => o.value === value);
-      const shouldSelect = !(option && option.selected);
-      setSelected(value, shouldSelect);
+      const isActive = item.classList.contains('active');
+      setSelected(value, !isActive);
     });
   });
 
+  // סגירה בלחיצה בחוץ
   document.addEventListener('click', function (e) {
     if (!ms.contains(e.target)) {
       ms.classList.remove('open');
     }
   });
 
+  // אתחול ראשוני
   renderChips();
+  syncMenuActive();
+  updatePlaceholder();
 });
 </script>
 
