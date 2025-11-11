@@ -439,17 +439,22 @@ button[type="submit"]:active {
 
 .tag-ms .item:hover { background:#f9fafb; }
 
-/* ה-✓ מופיע רק כשהפריט פעיל */
 .tag-ms .item .check {
-  font-size:14px;
-  color:#22c55e;
-  opacity:0;
-  transition:opacity .12s ease;
+  font-size: 16px;
+  color: #22c55e;
+  opacity: 0;
+  transition: opacity .12s ease;
+}
+
+.tag-ms .item.active {
+  background:#fff1f5;
+  color:#b91c1c;
 }
 
 .tag-ms .item.active .check {
-  opacity:1;
+  opacity: 1;
 }
+
 
 /* הסלקט החבוי שנשלח לשרת */
 #mentor_feedback_points {
@@ -482,3 +487,4 @@ button[type="submit"]:active {
   font-size:20px;
   line-height:1;
 }
+
