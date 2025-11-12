@@ -529,3 +529,13 @@ input[type="tel"] {
   justify-content: flex-end;
 }
 
+/* ===== חוות דעת - יישור מימין לשמאל ===== */
+.tag-ms,
+.tag-ms .control,
+.tag-ms .chips,
+.tag-ms .menu .item {
+  direction: rtl;
+  text-align: right;
+  justify-content: flex-end;
+}
+
