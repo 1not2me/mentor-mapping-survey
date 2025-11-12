@@ -555,6 +555,28 @@ input[type="tel"] {
   text-align: right;
   justify-content: flex-end;
 }
+/* ===== יישור מימין לשאלות רדיו (כמו "האם יש כוונה להמשיך...") ===== */
+label.required {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* כדי שהכוכבית והטקסט יישארו מימין */
+  text-align: right;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: flex-start; /* במקום space-between */
+  flex-direction: row-reverse; /* עיגול בצד ימין, טקסט אחריו */
+  gap: 60px; /* רווח בין כן/לא */
+  width: 100%;
+}
+
+.radio-option {
+  flex-direction: row-reverse; /* מציב את העיגול מימין והטקסט משמאל */
+  text-align: right;
+  gap: 8px;
+}
+
 
 
 
