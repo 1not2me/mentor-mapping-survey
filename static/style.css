@@ -428,6 +428,23 @@ button[type="submit"]:active {
   z-index: 10;
   direction: rtl;
 }
+/* ===== סידור יישור בתפריט הבחירה (הרשימה) ===== */
+.tag-ms .menu .item {
+  direction: rtl;
+  text-align: right;
+  justify-content: flex-start; /* מצמיד את הטקסט לצד ימין */
+  padding-right: 18px;
+  padding-left: 12px;
+}
+
+/* ===== החץ למטה בצד שמאל ===== */
+.tag-ms .caret {
+  order: 2;              /* מזיז את החץ לסוף האלמנטים בשורה */
+  margin-right: auto;    /* דוחף אותו לשמאל */
+  margin-left: 0;
+  color: var(--primary);
+  font-size: 16px;
+}
 
 .tag-ms.open .menu {
   display: block;
@@ -461,6 +478,7 @@ button[type="submit"]:active {
   color: #22c55e;
   font-size: 16px;
   opacity: 0;
+  margin-right: auto;  /* הסימון הירוק בצד שמאל */
 }
 
 .tag-ms .item.active .check {
@@ -537,5 +555,6 @@ input[type="tel"] {
   text-align: right;
   justify-content: flex-end;
 }
+
 
 
