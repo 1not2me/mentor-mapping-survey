@@ -563,19 +563,27 @@ label.required {
   text-align: right;
 }
 
+/* ברירת מחדל לשדות רדיו "כמו מין" */
 .radio-group {
   display: flex;
-  justify-content: flex-start; /* במקום space-between */
-  flex-direction: row-reverse; /* עיגול בצד ימין, טקסט אחריו */
-  gap: 60px; /* רווח בין כן/לא */
+  justify-content: space-between; /* פריסה לקצוות */
+  gap: 60px;
   width: 100%;
 }
 
+/* טקסט ואז העיגול (כמו בשדה מין) */
 .radio-option {
-  flex-direction: row-reverse; /* מציב את העיגול מימין והטקסט משמאל */
-  text-align: right;
+  display: inline-flex;
+  flex-direction: row; /* חשוב: לא row-reverse */
+  align-items: center;
   gap: 8px;
+  text-align: right;
 }
+
+/* לוודא סדר נכון בתוך כל אופציה */
+.radio-option span { order: 1; }              /* הטקסט */
+.radio-option input[type="radio"] { order: 2; } /* העיגול */
+
 
 
 
