@@ -496,3 +496,36 @@ input[type="tel"] {
   text-align: right;
   font-family: "David","Assistant","Noto Sans Hebrew","Segoe UI",system-ui,Arial;
 }
+/* ===== יישור מימין לשמאל לאזור הצ'יפים ===== */
+.tag-ms {
+  direction: rtl;
+  text-align: right;
+}
+
+.tag-ms .control {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.tag-ms .chips {
+  direction: rtl;
+  text-align: right;
+}
+
+.tag-ms .placeholder {
+  text-align: right;
+}
+
+/* סידור מחדש של החץ */
+.tag-ms .caret {
+  left: auto;
+  right: 10px;
+}
+
+/* אם את רוצה גם שהטקסט של האופציות ברשימה יהיה מימין */
+.tag-ms .menu .item {
+  direction: rtl;
+  text-align: right;
+  justify-content: flex-end;
+}
+
