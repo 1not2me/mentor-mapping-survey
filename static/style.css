@@ -528,30 +528,3 @@ input[type="tel"] {
   text-align: right;
   justify-content: flex-end;
 }
-/* 1) select – שיוך RTL גם למילת "בחר/י" */
-select {
-  direction: rtl;
-  text-align: right;        /* ל־Safari/Firefox */
-  text-align-last: right;   /* ל־Chrome/Edge */
-}
-option { direction: rtl; text-align: right; }
-
-/* 2) רדיו – העיגול מימין והטקסט משמאל */
-.radio-option {
-  display: inline-flex;
-  flex-direction: row-reverse;  /* הופך את הסדר: עיגול ← טקסט */
-  align-items: center;
-  gap: 10px;
-}
-
-/* 3) חוות דעת (הרב־בחירה עם הצ'יפים) – placeholder מימין */
-.tag-ms .control {
-  flex-direction: row-reverse;  /* סדר מימין לשמאל: חץ, placeholder, צ'יפים */
-}
-.tag-ms .chips {
-  flex: 0 1 auto;               /* מונע מהצ'יפים לדחוף את ה-placeholder לשמאל כשהרשימה ריקה */
-}
-.tag-ms .placeholder {
-  margin: 0 8px 0 0;            /* ריווח קטן משמאל */
-  text-align: right;
-}
