@@ -377,9 +377,17 @@ button[type="submit"]:active {
   flex: 1 1 auto;
 }
 
-.tag-ms .placeholder {
+.tag-ms .placeholder{
+  order: 1;
   font-size: 15px;
   color: #9ca3af;
+  margin-inline-start: 0;
+}
+.tag-ms .chips{
+  order: 2;
+  flex: 1 1 auto;
+  direction: rtl;
+  text-align: right;
 }
 
 .tag-ms .caret {
@@ -529,4 +537,5 @@ input[type="tel"] {
   text-align: right;
   justify-content: flex-end;
 }
+
 
