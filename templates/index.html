@@ -118,17 +118,13 @@
         <h2>המשכיות ההדרכה</h2>
         <label class="required">
           <span class="label-text">האם יש כוונה להמשיך בהדרכה לשנה נוספת?</span>
-          <div class="radio-group">
-            <label class="radio-option">
-              <span>כן</span>
-              <input type="radio" name="continue_mentoring" value="כן" required>
-            </label>
-            <label class="radio-option">
-              <span>לא</span>
-              <input type="radio" name="continue_mentoring" value="לא" required>
-            </label>
-          </div>
-        </label>
+          <select id="prev_training" name="prev_training" required>
+          <option value="">בחר/י</option>
+          <option>לא</option>
+          <option>כן</option>
+          <option>אחר...</option>
+        </select>
+      </label>
       </section>
 
       <!-- בקשות מיוחדות -->
@@ -297,3 +293,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
+
