@@ -2,9 +2,8 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <title>מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</title>
+  <title>מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- להשתמש בקובץ ה-CSS שהדבקת -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -13,7 +12,7 @@
 
   <!-- HEADER -->
   <header class="hero">
-    <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים – שנת הכשרה תשפ"ו</h1>
+    <h1>📋 מיפוי מדריכים לשיבוץ סטודנטים - שנת הכשרה תשפ"ו</h1>
     <p class="sub">
       שלום רב, מטרת טופס זה היא לאסוף מידע עדכני על מדריכים ומוסדות לקראת שיבוץ הסטודנטים לשנה הקרובה.
       אנא מלא/י את כל השדות בצורה מדויקת. המידע ישמש לצורך תכנון השיבוץ בלבד.
@@ -24,8 +23,8 @@
   <div class="messages">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        {% for cat, msg in messages %}
-          <div class="msg msg-{{ cat }}">{{ msg }}</div>
+        {% for category, msg in messages %}
+          <div class="msg msg-{{ category }}">{{ msg }}</div>
         {% endfor %}
       {% endif %}
     {% endwith %}
@@ -52,7 +51,7 @@
         <label class="required">
           <span class="label-text">סטטוס מדריך</span>
           <select name="mentor_status" required>
-            <option value="">בחר/י מהאפשרויות</option>
+            <option value="">בחר/י</option>
             <option value="מדריך חדש (נדרש קורס)">מדריך חדש (נדרש קורס)</option>
             <option value="מדריך ותיק">מדריך ותיק</option>
             <option value="רכז/ת">רכז/ת</option>
@@ -72,7 +71,7 @@
         <label class="required">
           <span class="label-text">תחום התמחות</span>
           <select name="specialization" required>
-            <option value="">בחר/י מהרשימה</option>
+            <option value="">בחר/י</option>
             {% for s in specializations %}
               <option value="{{ s }}">{{ s }}</option>
             {% endfor %}
@@ -103,6 +102,7 @@
       <!-- קליטת סטודנטים -->
       <section>
         <h2>קליטת סטודנטים</h2>
+
         <label class="required">
           <span class="label-text">מספר סטודנטים שניתן לקלוט (1 או 2)</span>
           <select name="num_students" required>
@@ -115,9 +115,9 @@
 
       <!-- המשכיות הדרכה -->
       <section>
-        <h2>המשכיות הדרכה</h2>
+        <h2>המשכיות ההדרכה</h2>
         <label class="required">
-          <span class="label-text">האם יש כוונה להמשיך הדרכה לשנה נוספת?</span>
+          <span class="label-text">האם יש כוונה להמשיך בהדרכה לשנה נוספת?</span>
           <div class="radio-group">
             <label class="radio-option">
               <span>כן</span>
@@ -135,56 +135,51 @@
       <section>
         <h2>בקשות מיוחדות</h2>
         <label>
-          <span class="label-text">בקשות מיוחדות (שעות, שפות, נגישות, אילוצים וכו')</span>
+          <span class="label-text">
+            בקשות מיוחדות (לדוגמה: ימי הדרכה, שעות, נגישות, אילוצים)
+          </span>
           <textarea name="special_requests" rows="3"
-                    placeholder="כתוב/י כאן כל בקשה שתרצה שניקח בחשבון בשיבוץ"></textarea>
+                    placeholder="כתוב/י כאן כל בקשה שנרצה לקחת בחשבון בשיבוץ"></textarea>
         </label>
       </section>
 
-      <!-- חוות דעת על המדריך | MULTISELECT עם צ'יפים -->
+      <!-- חוות דעת על המדריך - MULTISELECT -->
       <section>
         <h2>חוות דעת על המדריך</h2>
 
-          <label class="required">
-          <span class="label-text">נקודות רלוונטיות (ניתן לבחור יותר מאפשרות אחת)</span>
-          </label>
-          <div class="tag-ms" data-ms="mentor_feedback">
-            <div class="control">
-              <div class="chips" data-ms-chips></div>
-              <div class="placeholder">
-                בחר/י נקודות רלוונטיות (ניתן לבחור יותר מאפשרות אחת)
-              </div>
-              <div class="caret">▼</div>
-            </div>
-
-            <div class="menu">
-              <div class="item" data-value="זמינות גבוהה">
-                <span>זמינות גבוהה</span>
-                <span class="check">✓</span>
-              </div>
-              <div class="item" data-value="ליווי מקצועי משמעותי">
-                <span>ליווי מקצועי משמעותי</span>
-                <span class="check">✓</span>
-              </div>
-              <div class="item" data-value="שיתוף פעולה עם המוסד">
-                <span>שיתוף פעולה עם המוסד</span>
-                <span class="check">✓</span>
-              </div>
-              <div class="item" data-value="צורך בחיזוק בליווי">
-                <span>צורך בחיזוק בליווי</span>
-                <span class="check">✓</span>
-              </div>
-            </div>
+        <!-- עטיפת הצ'יפים -->
+        <div class="tag-ms" data-ms="mentor_feedback">
+          <div class="control">
+            <div class="chips" data-ms-chips></div>
+            <div class="placeholder">בחר/י</div>
+            <div class="caret">▼</div>
           </div>
 
-          <!-- select חבוי שנשלח לשרת -->
-          <select id="mentor_feedback_points" name="mentor_feedback_points" multiple>
-            <option value="זמינות גבוהה"></option>
-            <option value="ליווי מקצועי משמעותי"></option>
-            <option value="שיתוף פעולה עם המוסד"></option>
-            <option value="צורך בחיזוק בליווי"></option>
-          </select>
-        </label>
+          <div class="menu">
+            <div class="item" data-value="זמינות גבוהה">
+              <span>זמינות גבוהה</span><span class="check">✓</span>
+            </div>
+            <div class="item" data-value="ליווי מקצועי משמעותי">
+              <span>ליווי מקצועי משמעותי</span><span class="check">✓</span>
+            </div>
+            <div class="item" data-value="שיתוף פעולה עם המוסד">
+              <span>שיתוף פעולה עם המוסד</span><span class="check">✓</span>
+            </div>
+            <div class="item" data-value="צורך בחיזוק בליווי">
+              <span>צורך בחיזוק בליווי</span><span class="check">✓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- select חבוי שנשלח לשרת -->
+        <select id="mentor_feedback_points"
+                name="mentor_feedback_points"
+                multiple hidden>
+          <option value="זמינות גבוהה"></option>
+          <option value="ליווי מקצועי משמעותי"></option>
+          <option value="שיתוף פעולה עם המוסד"></option>
+          <option value="צורך בחיזוק בליווי"></option>
+        </select>
 
         <label>
           <span class="label-text">כתיבה חופשית (פירוט נוסף)</span>
@@ -210,8 +205,9 @@
 
       <!-- כפתור שליחה -->
       <div class="submit-wrap">
-        <button type="submit" class="btn primary">
-          📨 שליחת הטופס
+        <button type="submit">
+          <span>📨</span>
+          שליחת הטופס
         </button>
       </div>
 
@@ -219,83 +215,79 @@
   </main>
 </div>
 
-<!-- סקריפט לצ'יפים -->
+<!-- SCRIPT: tag-ms (רב־בחירה עם צ'יפים) -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const ms = document.querySelector('[data-ms="mentor_feedback"]');
   if (!ms) return;
 
-  const control = ms.querySelector('.control');
-  const menu = ms.querySelector('.menu');
-  const chipsBox = ms.querySelector('[data-ms-chips]');
+  const control     = ms.querySelector('.control');
+  const menu        = ms.querySelector('.menu');
+  const chipsBox    = ms.querySelector('[data-ms-chips]');
   const placeholder = ms.querySelector('.placeholder');
   const hiddenSelect = document.getElementById('mentor_feedback_points');
-  if (!control || !menu || !chipsBox || !placeholder || !hiddenSelect) return;
-
-  function getSelectedValues() {
-    return Array.from(hiddenSelect.options)
-      .filter(o => o.selected)
-      .map(o => o.value);
-  }
 
   function updatePlaceholder() {
-    placeholder.style.display = getSelectedValues().length ? 'none' : 'block';
+    const hasSelected = hiddenSelect.selectedOptions.length > 0;
+    placeholder.style.display = hasSelected ? 'none' : 'block';
   }
 
   function renderChips() {
     chipsBox.innerHTML = '';
-    const values = getSelectedValues();
-
-    values.forEach(v => {
+    Array.from(hiddenSelect.selectedOptions).forEach(opt => {
       const chip = document.createElement('div');
       chip.className = 'chip';
-      chip.innerHTML = '<span>' + v + '</span><button type="button">&times;</button>';
+      chip.dataset.value = opt.value;
+      chip.innerHTML = '<span>' + opt.value +
+                       '</span><button type="button">&times;</button>';
+
       chip.querySelector('button').addEventListener('click', function (e) {
         e.stopPropagation();
-        setSelected(v, false);
+        setSelected(opt.value, false);
       });
+
       chipsBox.appendChild(chip);
     });
-
     updatePlaceholder();
   }
 
   function syncMenu() {
-    const selected = new Set(getSelectedValues());
+    const selected = new Set(
+      Array.from(hiddenSelect.selectedOptions).map(o => o.value)
+    );
     menu.querySelectorAll('.item').forEach(item => {
-      const v = item.dataset.value;
-      const active = selected.has(v);
-      item.classList.toggle('active', active);
-
-      const check = item.querySelector('.check');
-      if (check) {
-        check.style.opacity = active ? '1' : '0';
-      }
+      const val = item.dataset.value;
+      item.classList.toggle('active', selected.has(val));
     });
   }
 
   function setSelected(value, on) {
-    const opt = Array.from(hiddenSelect.options).find(o => o.value === value);
+    const opt = Array.from(hiddenSelect.options)
+      .find(o => o.value === value);
     if (!opt) return;
     opt.selected = !!on;
     renderChips();
     syncMenu();
   }
 
-  control.addEventListener('click', function (e) {
-    e.stopPropagation();
+  // toggle פתיחה
+  control.addEventListener('click', function () {
     ms.classList.toggle('open');
   });
 
+  // בחירת אופציה
   menu.querySelectorAll('.item').forEach(item => {
     item.addEventListener('click', function (e) {
       e.stopPropagation();
-      const v = item.dataset.value;
-      const selected = new Set(getSelectedValues());
-      setSelected(v, !selected.has(v));
+      const value = item.dataset.value;
+      const opt = Array.from(hiddenSelect.options)
+        .find(o => o.value === value);
+      const shouldSelect = !(opt && opt.selected);
+      setSelected(value, shouldSelect);
     });
   });
 
+  // סגירת רשימה בלחיצה בחוץ
   document.addEventListener('click', function (e) {
     if (!ms.contains(e.target)) {
       ms.classList.remove('open');
@@ -305,16 +297,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // התחלה
   renderChips();
   syncMenu();
-
-  // להסתיר את ה-select החבוי מהעין
-  hiddenSelect.style.position = 'absolute';
-  hiddenSelect.style.opacity = '0';
-  hiddenSelect.style.pointerEvents = 'none';
-  hiddenSelect.style.height = '0';
-  hiddenSelect.style.margin = '0';
 });
 </script>
 
 </body>
 </html>
-
