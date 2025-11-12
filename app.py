@@ -186,9 +186,12 @@ def index():
             ensure_header(ws)
             ws.append_row([record[col] for col in COLUMNS_ORDER])
             flash("✅ הטופס נשלח ונשמר בהצלחה! תודה 🌟", "success")
+
         except Exception as e:
+            import traceback
             print("Google Sheets append error:", e)
-            flash("❌ שגיאה בשמירה לגיליון. נא לפנות למנהל המערכת.", "error")
+            traceback.print_exc()  # ידפיס את כל פרטי השגיאה בלוגים של Render
+            flash(f"❌ שגיאה בשמירה לגיליון: {e}", "error")
 
         return redirect(url_for("index"))
 
@@ -198,3 +201,4 @@ def index():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
