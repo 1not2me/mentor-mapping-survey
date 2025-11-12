@@ -232,7 +232,7 @@ select:not([multiple]):focus {
 
 .radio-option {
   display:inline-flex;
-  flex-direction: row-reverse; /* הופך את הסדר: עיגול ← טקסט */
+  flex-direction:row;
   align-items:center;
   gap:10px;
   cursor:pointer;
@@ -528,13 +528,3 @@ input[type="tel"] {
   text-align: right;
   justify-content: flex-end;
 }
-select {
-  direction: rtl;
-  text-align: right;
-  text-align-last: right;
-}
-option {
-  direction: rtl;
-  text-align: right;
-}
-
