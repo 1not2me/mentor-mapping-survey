@@ -226,13 +226,14 @@ select:not([multiple]):focus {
 .radio-group {
   display:flex;
   flex-direction:row;
+  justify-content: space-between; /* מפזר את שתי האופציות לקצוות, כמו דוגמת המין */
   align-items:center;
   gap:40px;
 }
 
 .radio-option {
   display:inline-flex;
-  flex-direction:row;
+  flex-direction: row-reverse;    /* הופך את הסדר: קודם העיגול ואז הטקסט */
   align-items:center;
   gap:10px;
   cursor:pointer;
@@ -528,3 +529,4 @@ input[type="tel"] {
   text-align: right;
   justify-content: flex-end;
 }
+
